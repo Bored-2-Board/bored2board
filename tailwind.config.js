@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/server/*.ts",
+    ".next/types/**/*.ts"
   ],
   theme: {
     extend: {
@@ -21,5 +23,16 @@ module.exports = {
       textColor: ['dark'],
     },
   },
-  plugins: [require('@tailwindcss/container-queries')],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: false,
+    darkTheme: "dark", 
+    base: true, 
+    styled: true,
+    utils: true, 
+    rtl: false,
+    prefix: "", 
+    logs: true, 
+  },
+
 }
