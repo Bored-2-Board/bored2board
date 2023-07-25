@@ -10,7 +10,7 @@ export default function Navigation() {
       <div className="navbar bg-base-100 rounded-3xl nav-color border border-slate-400">
         <Link href='/'>
         {/* TODO: add logo here */}
-          <p className="btn btn-ghost normal-case text-xl ml-2 text-slate-600">B2B</p>
+          <Image src='/BBCoolLogo.png' alt='BB-Logo' width={50} height={200} className="normal-case text-xl ml-2 text-slate-600 w-full h-full"/>
         </Link>
         <div className='md:flex hidden w-full justify-center ml-[6.5%]'>
           <Link href='/' className='nav-color'>

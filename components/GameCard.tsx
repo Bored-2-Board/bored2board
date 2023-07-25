@@ -12,7 +12,6 @@ export default function GameCard({ name, playerCount, gameLength, category, pric
     <p>Player Count: {playerCount}</p>
     <p>Game Length: {gameLength}</p>
     <p>Category: {category}</p>
-    <p>Price: {price}</p>
     <a href={link} target='_blank' className='underline'>Check it out here!</a>
   </div>
 </div>

@@ -1,10 +1,17 @@
+'use client';
 import Image from 'next/image'
 import Link from 'next/link'
 import SearchCard from '../../components/SearchCard';
 import GameCard from '../../components/GameCard';
 import Footer from '../../components/Footer';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Home() {
+
+  // const storeState = useSelector(state => state.searchResult.gameList);
+  // console.log(storeState);
+  // redux hooks
+
   return (
     <div>
     <div className='flex justify-center items-center mt-[10%]'>
