@@ -6,7 +6,7 @@
   background-color: whitesmoke;
 } 
 
-#gamecard-image {
+#profile-image {
   image-rendering: auto;
 }
 
@@ -22,4 +22,7 @@
 
 .nav-color {
   @apply bg-slate-100
+}
+.basic-transition {
+  @apply ease-linear transition duration-150;
 }
