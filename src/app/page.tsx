@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import SearchCard from '../../components/SearchCard';
+
+
 export default function Home() {
   return (
-    <Link href={'/landing'}>
-      <div className='button'>
-        hello world
-      </div>
-    </Link>
+    <div className='flex justify-center mt-[200px] mr-[400px]'>
+      <SearchCard/>
+    </div>
   )
 }
