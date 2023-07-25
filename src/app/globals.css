@@ -6,6 +6,10 @@
   background-color: whitesmoke;
 } 
 
+#gamecard-image {
+  image-rendering: auto;
+}
+
 
 
 .button {

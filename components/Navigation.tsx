@@ -21,18 +21,17 @@ export default function Navigation() {
           </Link>
         </div>
 
-    <div className='mr-2'>
+    <div className=''>
         <Link href='/login' className='nav-color'>
           <p className='btn btn-ghost nav-color flex items-center text-slate-600'>Login</p>
         </Link>
-    </div>
 
         {/* if logged in, show profile dropdown */}
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               {/* get profile picture */}
-              <Image src="/jordan-pic.png" alt='cute jordan' width={10} height={10}/>
+              <Image src="/jordangay.png" alt='cute jordan' width={2} height={2}/>
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 nav-color border border-slate-400">
@@ -53,7 +52,7 @@ export default function Navigation() {
             </li>
           </ul>
         </div>
-
+        </div>
     </div>
    </div>
 
