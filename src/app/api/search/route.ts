@@ -1,43 +1,22 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { createEdgeRouter } from "next-connect"
+import { NextResponse } from "next/server";
 
-//SETUP FOR NEXT-CONNECT ROUTER
-interface RequestContext {
-  params: {
-    id: string;
-  };
-};
+export async function GET(req: Request) {
 
-const router = createEdgeRouter<ResponseContext, RequestContext>();
+  try {
 
-router
-  .post(async(req, event, next) => {
-    // processing or fetch
-    // middleware 1
-    
-    return next() // for next middleware
-  })
+    // GET USERID FROM URL PARAMS
+    const searchParams: URLSearchParams = new URL(req.url).searchParams;
+    const categoryID: string | null = searchParams.get('categoryID');
 
-  .post(async(req, res, next) => {
+    const response = await fetch(`https://api.boardgameatlas.com/api/search?categories=${categoryID}&order_by=trending&client_id=JLBr5npPhV`);
+    const data = await response.json();
+    console.log('trending/route.ts: trending games:', data);
 
-    //middleware2
-  })
+    return NextResponse.json({ data });
 
-  .post(async(req, res, next) => {
-
-    //middleware2
-    return NextResponse.json({response: response, status: 200})
-  })
-
-
-
-
-/// alternative
-
-export async function POST(request: NextRequest) {
-
-  // process data
-  const message = data;
-  return NextResponse.json({});
+  } catch (error) {
+    console.log('Error with GET request:', error);
+    return NextResponse.json({ message: 'Error with GET request for Game Search', error, status: 500 });
+  }
 
 }

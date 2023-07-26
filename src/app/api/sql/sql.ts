@@ -6,7 +6,7 @@ SQL Controller:
 
 import { Pool, PoolClient } from 'pg';
 
-const pg_URI = '';
+const pg_URI = 'postgres://ppyechmx:iYyd2EDRNUYXWhcKagaXJ0JBmKewimkY@mahmud.db.elephantsql.com/ppyechmx';
 
 const pool = new Pool({
   connectionString: pg_URI
