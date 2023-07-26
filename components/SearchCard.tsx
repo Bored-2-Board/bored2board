@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from 'next/image';
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addSearchResults, startLoading } from '../src/app/store/SearchResults/searchResultSlice'
@@ -121,7 +122,7 @@ export default function SearchCard() {
           category = 'Random'
         };
 
-
+ // category // playerCount // price
       // dispatch(startLoading());
       let playerCount = players;
       let price = selectedButton;
@@ -132,14 +133,9 @@ export default function SearchCard() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          price,
-          playerCount,
-          category,
-        }),
       };
 
-      const response = await fetch('/api/getGames', settings);
+      const response = await fetch(`/api/getGames?category=${category}&playercount=${playerCount}&price=${price}`, settings);
       const gameList = await response.json();
       // dispatch(addSearchResults(gameList));
 
@@ -157,9 +153,9 @@ export default function SearchCard() {
     >
       <figure></figure>
       <div className="card-body">
-        <h2 className="card-title">bored2board</h2>
+      <Image src='/BBCoolLogo.png' alt='BB-Logo' width={400} height={100} className=" w-[50px] h-full transform scale-[200%] ml-2"/>
         <br></br>
-        <p>How many players do you have?</p>
+        <p className='font-semibold text-slate-700'>How many players do you have?</p>
         <input
           type="range"
           min={1}
@@ -181,7 +177,7 @@ export default function SearchCard() {
           <span>10</span>
         </div>
         <br></br>
-        <p>What do you want to play?</p>
+        <p className='font-semibold text-slate-700' >What do you want to play?</p>
         <details className="dropdown" open={dropdownOpen}>
           <summary
             className={!genre ? dropdownActive : dropdownInactive}
@@ -230,7 +226,7 @@ export default function SearchCard() {
           </ul>
         </details>
         <div className="flex w-[100%] items-center justify-center pl-[150px]">
-          <p>OR</p>
+          <p className='font-semibold text-slate-700' >OR</p>
         </div>
         <button
           className={anything ? trueColor : falseColor}
@@ -239,7 +235,7 @@ export default function SearchCard() {
           ANYTHING
         </button>
         <br></br>
-        <p>What&apos;s your price point?</p>
+        <p className='font-semibold text-slate-700' >What&apos;s your price point?</p>
         <div className="flex justify-center space-between">
           <button
             className={selectedButton === "free" ? selectedYes : selectedNo}
