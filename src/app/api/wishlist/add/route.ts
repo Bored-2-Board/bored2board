@@ -26,11 +26,18 @@ export async function POST(req: Request) {
     // ADD TO WISHLIST DB
     const queryWish = `
     INSERT INTO wishlist (name, cost, user_id, image)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *
+    VALUES ($1, $2, $3, $4);
     `;
 
-    const wishlist = await dbClient?.query(queryWish, [gamename, cost, userID, image_url])
+    await dbClient?.query(queryWish, [gamename, cost, userID, image_url]);
+
+    // GET UPDATED LIST
+    const queryGetList = `
+    SELECT * FROM wishlist
+    WHERE user_id = $1
+    `;
+
+    const wishlist = await dbClient?.query(queryGetList, [userID]);
 
     /* 
     RETURN RESPONSE: 
@@ -43,7 +50,10 @@ export async function POST(req: Request) {
   } catch (error) {
 
     console.error('Error with POST request for Updating Wishlist:', error);
-    return NextResponse.json({ message: 'Error with POST request for Updating Wishlist', error, status: 500 });
+    return NextResponse.json({
+      message: 'Error with POST request for Updating Wishlist',
+      error: (error as Error).message
+    }, { status: 500 });
 
   } finally {
 
