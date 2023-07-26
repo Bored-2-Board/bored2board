@@ -19,15 +19,15 @@ export async function POST(req: Request) {
     // const userID = await dbClient?.query(queryID, [username]);
 
     const body = await req.json();
-    const { userID, gamename, cost, image_url } = body;
+    const { userID, gamename, cost, image_url, numPlayers, gameLength, link } = body;
 
     // ADD TO WISHLIST DB
     const queryWish = `
-    INSERT INTO wishlist (name, cost, user_id, image)
-    VALUES ($1, $2, $3, $4);
+    INSERT INTO wishlist (name, cost, user_id, image, num_players, game_length, link)
+    VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
 
-    await dbClient?.query(queryWish, [gamename, cost, userID, image_url]);
+    await dbClient?.query(queryWish, [gamename, cost, userID, image_url, numPlayers, gameLength, link]);
 
     // GET UPDATED LIST
     const queryGetList = `

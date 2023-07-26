@@ -9,42 +9,38 @@ export async function DELETE(req: Request) {
     // GET USERID FROM URL PARAMS
     const searchParams: URLSearchParams = new URL(req.url).searchParams;
     const userID: string | null = searchParams.get("userID");
-    const gameName: string | null = searchParams.get("name");
+    const gamename: string | null = searchParams.get("name");
 
-    console.log('name: ', gameName);
+    console.log('name: ', gamename);
     console.log('id: ', userID);
 
     // QUERY DATABASE FOR WISHLIST
-    const queryWishlist = `
+    const queryDelete = `
     DELETE FROM wishlist
     WHERE user_id = $1 AND name = $2
     `;
 
-    await dbClient?.query(queryWishlist, [
-      userID,
-      gameName,
-    ]);
+    const deleteResponse = await dbClient?.query(queryDelete, [userID, gamename]);
 
-    // console.log("deletedGame:", deletedGame);
+    console.log("deletedGame:", deleteResponse);
 
     /* RETURN RESPONSE: 
           - Empty: message
           - Data: wishlist games
     */
-    // if ((deletedGame?.rowCount as number) > 0) {
-    //   NextResponse.json({ message: "Entry Successfully Deleted!" });
-    // }
+    if ((deleteResponse?.rowCount as number)) {
+      return NextResponse.json({ message: "Entry Successfully Deleted!" });
+    } else throw new Error('Entry does not exist')
 
-    return new NextResponse('Sucessfully Deleted!');
 
   } catch (error) {
     console.error("Error with DELETE request in Wishlist:", error);
     return NextResponse.json(
       {
-        message: "Error with DELETE request for Wishlist",
+        message: "Error with DELETE request in Wishlist: " + (error as Error).message,
         error: (error as Error).message,
       },
-      { status: 500 }
+      { status: 501 }
     );
   } finally {
     // DISCONNECT FROM DB (Account for if dbRelease is undefined with ? operator)
