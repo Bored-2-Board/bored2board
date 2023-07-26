@@ -9,7 +9,7 @@ interface popularGamesState {
 
 const initialState: popularGamesState = {
   gameList: [],
-  loading: null,
+  loading: true,
 }
 
 export const popularGamesSlice = createSlice({

@@ -26,30 +26,31 @@ export default function Login() {
     const updatePassword = (e) => {
         setPassword(e.target.value);
     }
-    
+
+
     const loginUser = () => {
     
     }
 
     const disabled = "btn btn-disabled";
 
-    return (
-        <div className="flex align-center justify-center mt-100 pt-20">
-            
-        <div className="card lg:card-side bg-base-100 shadow-xl w-2/5 mt-100" >
 
-            <figure>
-                <Image src='/BBCoolLogo.png' width={100} height={50} alt="logo"/>
-            </figure>
-                
+    // <div>
+    //             <Image src='/BBCoolLogo.png' width={100} height={50} alt="logo" className='h-full max-w-none'/>
+    //         </div>
+
+    return (
+        <div className="flex items-center justify-center mt-100 pt-10 pb-10">
+            
+        <div data-theme="light" className="card lg:card-side bg-base-100 shadow-xl w-2/5 mt-100 min-w-[500px]" >
+
             <div className="card-body">
-                <div className="flex justify-end px-5">
-                    <Link href='/register'>
-                        <button className="btn btn-primary">New User? Register</button>
-                    </Link>
-                </div>
-                <h2 className="card-title mt-5">Login</h2>
-                <div className="form-control w-full max-w-xs">
+                <h2 className="card-title mx-auto text-center">Login</h2>
+                <div className='mx-auto'>
+              <Image src='/BBCoolLogo.png' width={100} height={50} alt="logo" className='h-full max-w-none'/>
+                 </div>
+                <div className="form-control mt-2 w-full max-w-xs mx-auto">
+                    
                     <label className="label">
                         <span className="label-text">Username</span>
                         {/* <span className="label-text-alt">Top Right label</span> */}
@@ -68,12 +69,17 @@ export default function Login() {
                     <span className="label-text-alt">Bottom Left label</span>
                     <span className="label-text-alt">Bottom Right label</span>
                     </label> */}
-                    <div className="card-actions justify-end pt-5">
+                    <div className="card-actions justify-center pt-5">
                         {/* <Link href='/register'>
                         <button className="btn btn-primary" disabled={disabledButton} onClick={registerUser}>Register</button>
                         </Link> */}
-                        <button className="btn btn-primary" disabled={disabledButton} onClick={loginUser}>Login</button>
+                        <button className="btn btn-primary w-full" disabled={disabledButton} onClick={loginUser}>Login</button>
+                        <div className="divider w-full">OR</div> 
+                        <Link href='/register' className='w-full'>
+                        <button className="btn btn-primary w-full">Register</button>
+                        </Link>
                     </div>
+
                 </div>
             </div>
         </div>

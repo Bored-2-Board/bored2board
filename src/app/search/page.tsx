@@ -15,10 +15,10 @@ export default function Home() {
 console.log(gameState)
 console.log(loadingState);
 
-// const gameList = [];
-//   for (let i = 0; i < gameState.length; i++) {
-//     gameList.push(<GameCard name={gameState[i].name} playerCount={gameState.playerCount} gameLength={gameState[i].gameLength} category={gameState[i].category} link={gameState[i].category}/>)
-//   }
+const gameList = [];
+  for (let i = 0; i < gameState.length; i++) {
+    gameList.push(<GameCard name={gameState[i].name} price={`$${gameState[i].price}`} playerCount={`${gameState[i].min_players} - ${gameState[i].max_players}`} gameLength={`${gameState[i].min_playtime} - ${gameState[i].max_playtime}`} link={gameState[i].official_url} src={gameState[i].image_url}/>)
+  }
 
 
 return (
@@ -45,9 +45,7 @@ return (
       </div>
       :
       <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] mb-[10%]'> 
-        <GameCard/>
-        <GameCard/>
-        <GameCard/>
+        {gameList}
       </div>
       }
     </div>

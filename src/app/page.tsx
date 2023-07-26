@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SearchCard from '../../components/SearchCard';
 import GameCard from '../../components/GameCard';
+import SkeletonLoader from '../../components/Skeleton';
 import Footer from '../../components/Footer';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -30,63 +31,84 @@ export default function Home() {
       dispatch(startLoading());
       dispatch(startLoadingNew());
 
-      const popularResponse = await fetch('/api/getTrendingGames');
-      const newResponse = await fetch('/api/getNewGames')
+      const popularResponse = await fetch('/api/new');
+      const newResponse = await fetch('/api/popular')
       const popularGameList = await popularResponse.json();
       const newGameList = await newResponse.json();
 
-      dispatch(addPopularResults(popularGameList))
-      dispatch(addNewResults(newGameList));
+
+      dispatch(addPopularResults(popularGameList.data.games))
+      dispatch(addNewResults(newGameList.data.games));
 
     } catch (e) {
       console.log(e);
     }
   }
-  // getCards()
-  });
+  getCards()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   
   // logic for popular and game list renders
   // this iterates over the current store data and turns that data into a game card
   // it is then added to an array which we will render in the return statement
 
-  // const popularList = [];
-  //   for (let i = 0; i < 3; i++) {
-  //     popularList.push(<GameCard />)
-  //   };
+  //popularGameList
+  //newGameList
 
-  //   const newList = [];
-  //   for (let i = 0; i < 3; i++) {
-  //     newList.push(<GameCard />)
-  //   };
+  // console.log(popularGameList[0].name)
+const popularList = [];
 
+  if (popularGameList.length !== 0) {
+  
+    for (let i = 0; i < 3; i++) {
+      popularList.push(<GameCard name={popularGameList[i].name} price={`$${popularGameList[i].price}`} playerCount={`${popularGameList[i].min_players} - ${popularGameList[i].max_players}`} gameLength={`${popularGameList[i].min_playtime} - ${popularGameList[i].max_playtime}`} link={popularGameList[i].official_url} src={popularGameList[i].image_url}/>)
+    }
+  }
 
+  console.log(popularList.length)
+
+    const newList = [];
+
+    if (newGameList.length !== 0) {
+   for (let i = 0; i < 3; i++) {
+    newList.push(<GameCard name={newGameList[i].name} price={`$${newGameList[i].price}`} playerCount={`${newGameList[i].min_players} - ${newGameList[i].max_players}`} gameLength={`${newGameList[i].min_playtime} - ${newGameList[i].max_playtime}`} link={newGameList[i].official_url} src={newGameList[i].image_url}/>)
+  }
+}
+
+const spookySkeletons = [<SkeletonLoader />, <SkeletonLoader />, <SkeletonLoader />]
 
   return (
     <div>
     <div className='flex justify-center items-center mt-[3%]'>
       <h1 className='font-black text-4xl text-slate-800' >Trending Games</h1>
       </div>
+    {popularLoading ? 
+     <div className='flex justify-center items-center mt-[2%]'>
+     {spookySkeletons}
+   </div>
+   :
     <div className='flex justify-center items-center mt-[2%]'>
-      <GameCard />
-      <GameCard />
-      <GameCard />
+      {popularList}
     </div>
+    }
     <div className='flex justify-center items-center mt-[4%] '>
       <h1 className='font-black text-4xl text-slate-800' >New Games</h1>
       </div>
+      {newLoading ? 
+     <div className='flex justify-center items-center mt-[2%]'>
+     {spookySkeletons}
+   </div>
+   :
     <div className='flex justify-center items-center mt-[2%]'>
-      <GameCard />
-      <GameCard />
-      <GameCard />
+      {newList}
     </div>
+    }
     <div className='flex justify-center items-center mt-[4%]'>
       <h1 className='font-black text-4xl text-slate-800' >WishList</h1>
       </div>
     <div className='flex justify-center items-center mt-[2%]'>
-      <GameCard />
-      <GameCard />
-      <GameCard />
+    {spookySkeletons}
     </div>
     <div className='mt-[5%]'>
     <Footer/>
