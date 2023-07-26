@@ -9,7 +9,7 @@ interface searchResultState {
 
 const initialState: searchResultState = {
   gameList: [],
-  loading: true,
+  loading: null,
 }
 
 export const searchResultSlice = createSlice({

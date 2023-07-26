@@ -41,7 +41,7 @@ export default function Navigation() {
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               {/* get profile picture */}
-              <Image id='profile-image' src="/taylor.jpeg" alt='taylor' width={1} height={1}/>
+              <Image id='profile-image' src="/taylor.jpeg" alt='taylor' width={200} height={1}/>
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 nav-color border border-slate-400">

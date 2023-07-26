@@ -8,7 +8,7 @@ export default function GameCard({ name, playerCount, gameLength, price, link, s
       <img src={src ? src : "/dbd.jpg"} alt='dbd' width={200} height={200} id='gamecard-image' className='rounded-2xl w-[95%] max-h-[200px] mt-2'/>
   </div>
   <div className="card-body flex-col max-w-full overflow-auto">
-    <p className='text-slate-600 font-bold ' >Name: {name}</p>
+    <p className='text-slate-600 font-bold truncate hover:text-clip ' >Name: {name}</p>
     <p className='text-slate-600 font-bold' >Player Count: {playerCount}</p>
     <p className='text-slate-600 font-bold' >Game Length: {gameLength}</p>
     <p className='text-slate-600 font-bold' >Price: {price}</p>
