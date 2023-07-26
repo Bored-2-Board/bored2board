@@ -10,7 +10,7 @@ export async function GET(req: Request) {
     // PARAMS
     const fields: string = `fields=name,description,price,images,image_url,players,min_players,max_players,playtime,min_playtime,max_playtime,url,official_url`;
     const order: string = 'order_by=rank';
-    const year = `year_published=${currentYear}`;
+    const year = `gt_year_published=${currentYear - 1}&lt_year_published=${currentYear + 1}`;
 
     // FETCH
     const response = await fetch(`https://api.boardgameatlas.com/api/search?${order}&${fields}&${year}&client_id=JLBr5npPhV`);
