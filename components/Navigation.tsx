@@ -3,17 +3,28 @@
 import React from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSelector, useDispatch } from 'react-redux';
+import { restartLoading } from '../src/app/store/SearchResults/searchResultSlice'
 export default function Navigation() {
+  const dispatch = useDispatch();
+
+  const homeOnClick = () => {
+    setTimeout(() => {
+      dispatch(restartLoading());
+    }, 1500)
+  }
+  
+  // taken  off of nav bar- md:px-8 py-2 px-4 
 
   return (
-    <div className="md:px-8 z-20 absolute top-0 flex w-full items-center py-2 px-4 justify-between">
+    <div className="z-20 sticky top-0 flex w-full items-center justify-between mt-2 px-2">
       <div className="navbar bg-base-100 rounded-3xl nav-color border border-slate-400">
         <Link href='/'>
         {/* TODO: add logo here */}
           <Image src='/BBCoolLogo.png' alt='BB-Logo' width={50} height={200} className="normal-case text-xl ml-2 text-slate-600 w-full h-full"/>
         </Link>
         <div className='md:flex hidden w-full justify-center ml-[6.5%]'>
-          <Link href='/' className='nav-color'>
+          <Link href='/' className='nav-color' onClick={homeOnClick}>
             <p className='btn btn-ghost nav-color flex items-center text-slate-600'>Home</p>
           </Link>
           <Link href='/search' className='nav-color'>

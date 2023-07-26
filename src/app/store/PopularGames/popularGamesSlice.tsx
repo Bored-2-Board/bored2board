@@ -2,22 +2,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-interface searchResultState {
+interface popularGamesState {
   gameList: any;
   loading: any;
 }
 
-const initialState: searchResultState = {
+const initialState: popularGamesState = {
   gameList: [],
-  loading: true,
+  loading: null,
 }
 
-export const searchResultSlice = createSlice({
-  name: 'searchResult',
+export const popularGamesSlice = createSlice({
+  name: 'popularGames',
   initialState,
   reducers: {
-    addSearchResults: (state, action) => {
-      console.log(state.gameList)
+    addPopularResults: (state, action) => {
+      console.log(state.gameList);
       state.gameList = action.payload;
       state.loading = false;
     },
@@ -30,6 +30,6 @@ export const searchResultSlice = createSlice({
   },
 })
 
-export const { addSearchResults, startLoading, restartLoading } = searchResultSlice.actions
+export const { addPopularResults, startLoading, restartLoading } = popularGamesSlice.actions
 
-export default searchResultSlice.reducer
+export default popularGamesSlice.reducer

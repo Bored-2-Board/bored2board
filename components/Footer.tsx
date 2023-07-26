@@ -5,18 +5,18 @@ export default function Footer() {
     <footer className="footer p-10 bg-base-300 text-base-content">
     <div>
       <span className="footer-title">Team</span> 
-      <a className="link link-hover">Abe Henderson</a> 
-      <a className="link link-hover">Franki Biswas</a> 
-      <a className="link link-hover">Jordan Zolman</a> 
-      <a className="link link-hover">Nitesh Sunku</a>
-      <a className="link link-hover">Alec Jessen</a>
+      <a className="link link-hover" href="https://www.linkedin.com/in/abe-henderson-367638139//">Abe Henderson</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/franki-biswas/">Franki Biswas</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/jordanzolman/" >Jordan Zolman</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/niteshsunku/">Nitesh Sunku</a>
+      <a className="link link-hover" href="https://www.linkedin.com/in/alecjessen/">Alec Jessen</a>
     </div> 
     <div>
       <span className="footer-title">Directory</span> 
-      <a className="link link-hover">Home</a> 
-      <a className="link link-hover">Search</a> 
-      <a className="link link-hover">Profile</a> 
-      <a className="link link-hover">Contact</a>
+      <a className="link link-hover" href="/">Home</a> 
+      <a className="link link-hover" href="/search">Search</a> 
+      <a className="link link-hover" href="/profile">Profile</a> 
+      <a className="link link-hover" href="/contact">Contact</a>
     </div> 
     <div>
       <span className="footer-title">Social</span> 

@@ -2,14 +2,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addSearchResults } from '../src/app/store/SearchResults/searchResultSlice'
+import { addSearchResults, startLoading } from '../src/app/store/SearchResults/searchResultSlice'
+
 export default function SearchCard() {
 
   const [anything, setAnything] = useState(false);
   const [genre, setGenre] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
   const [players, setPlayers] = useState(6);
-  const [selectedGenre, setSelectedGenre] = useState("Genre");
+  const [selectedGenre, setSelectedGenre] = useState("Select Genre");
   const [dropdownOpen, setDropdown] = useState(false);
   const [disabledGenre, setDisabled] = useState(false);
 
@@ -73,7 +74,6 @@ export default function SearchCard() {
     setGenre(true);
     setDropdown(false);
   };
-
   // selectedGenre = Genre we are sending -- if anything is true, send something else
   // players = players we are sending
   // price
@@ -90,7 +90,39 @@ export default function SearchCard() {
 
   const theBigClick = async () => {
     try {
-      let category = genre !== 'Genre' ? genre : false;
+
+      let category;
+
+        if (selectedGenre === 'Adventure') {
+          category = 'KUBCKBkGxV';
+        } else if (selectedGenre === 'Card Game') {
+          category = 'eX8uuNlQkQ'
+        } else if (selectedGenre === 'Competitive') {
+          category = 'pacCjl7His'
+        } else if (selectedGenre === 'Crime') {
+          category = '7DfHn28Pcf'
+        } else if (selectedGenre === 'Deduction') {
+          category = 'bCBXJy9qDw'
+        } else if (selectedGenre === 'Drinking') {
+          category = 'We3MM46qBr'
+        } else if (selectedGenre === 'Family Game') {
+          category = '7rV11PKqME'
+        } else if (selectedGenre === 'Fantasy') {
+          category = 'ZTneo8TaIO'
+        } else if (selectedGenre === 'Mystery') {
+          category = 'BBZb2d0ePt'
+        } else if (selectedGenre === 'Party Game') {
+          category = 'X8J7RM6dxX'
+        } else if (selectedGenre === 'Puzzle') {
+          category = 'WVMOS3s2pb'
+        } else if (selectedGenre === 'Trivia') {
+          category = 'YGHGDjahKY'
+        } else if (selectedGenre === 'Select Genre') {
+          category = 'Random'
+        };
+
+
+      // dispatch(startLoading());
       let playerCount = players;
       let price = selectedButton;
 
@@ -125,7 +157,7 @@ export default function SearchCard() {
     >
       <figure></figure>
       <div className="card-body">
-        <h2 className="card-title">Hey!</h2>
+        <h2 className="card-title">bored2board</h2>
         <br></br>
         <p>How many players do you have?</p>
         <input
@@ -163,10 +195,37 @@ export default function SearchCard() {
             onClick={selectGenre}
           >
             <li>
-              <a>Item 1</a>
+              <a>Adventure</a>
             </li>
             <li>
-              <a>Item 2</a>
+              <a>Card Game</a>
+            </li>
+            <li>
+              <a>Competitive</a>
+            </li>
+            <li>
+              <a>Crime</a>
+            </li>
+            <li>
+              <a>Deduction</a>
+            </li>
+            <li>
+              <a>Drinking</a>
+            </li>
+            <li>
+              <a>Family Game</a>
+            </li>
+            <li>
+              <a>Fantasy</a>
+            </li>
+            <li>
+              <a>Mystery</a>
+            </li>
+            <li>
+              <a>Party Game</a>
+            </li>
+            <li>
+              <a>Puzzle</a>
             </li>
           </ul>
         </details>
