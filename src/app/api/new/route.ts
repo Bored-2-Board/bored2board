@@ -5,12 +5,17 @@ export async function GET(req: Request) {
   try {
 
     const date = new Date();
-    const year = date.getFullYear();
+    const currentYear = date.getFullYear();
 
-    const response = await fetch(`https://api.boardgameatlas.com/api/search?year_published=${year}&limit=5&client_id=JLBr5npPhV`);
+    // PARAMS
+    const fields: string = `fields=name,description,price,images,image_url,players,min_players,max_players,playtime,min_playtime,max_playtime,url,official_url`;
+    const order: string = 'order_by=rank';
+    const year = `year_published=${currentYear}`;
+
+    // FETCH
+    const response = await fetch(`https://api.boardgameatlas.com/api/search?${order}&${fields}&${year}&client_id=JLBr5npPhV`);
+
     const data = await response.json();
-    // console.log('new/app.ts: data:', data);
-    console.log('test');
 
     return NextResponse.json({ data });
 
