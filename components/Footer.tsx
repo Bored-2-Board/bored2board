@@ -2,21 +2,21 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <footer className="footer p-10 bg-base-300 text-base-content">
+    <footer data-theme="light" className="footer p-10 bg-base-300 text-base-content">
     <div>
       <span className="footer-title">Team</span> 
-      <a className="link link-hover" href="https://www.linkedin.com/in/abe-henderson-367638139//">Abe Henderson</a> 
-      <a className="link link-hover" href="https://www.linkedin.com/in/franki-biswas/">Franki Biswas</a> 
-      <a className="link link-hover" href="https://www.linkedin.com/in/jordanzolman/" >Jordan Zolman</a> 
-      <a className="link link-hover" href="https://www.linkedin.com/in/niteshsunku/">Nitesh Sunku</a>
-      <a className="link link-hover" href="https://www.linkedin.com/in/alecjessen/">Alec Jessen</a>
+      <a className="link link-hover" href="https://www.linkedin.com/in/abe-henderson-367638139//" target='_blank'>Abe Henderson</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/franki-biswas/" target='_blank'>Franki Biswas</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/jordanzolman/" target='_blank' >Jordan Zolman</a> 
+      <a className="link link-hover" href="https://www.linkedin.com/in/niteshsunku/" target='_blank' >Nitesh Sunku</a>
+      <a className="link link-hover" href="https://www.linkedin.com/in/alecjessen/" target='_blank'>Alec Jessen</a>
     </div> 
     <div>
       <span className="footer-title">Directory</span> 
       <a className="link link-hover" href="/">Home</a> 
       <a className="link link-hover" href="/search">Search</a> 
       <a className="link link-hover" href="/profile">Profile</a> 
-      <a className="link link-hover" href="/contact">Contact</a>
+      <a className="link link-hover" href="https://github.com/Pikachu-58/bored2board" target='_blank'>Contact</a>
     </div> 
     <div>
       <span className="footer-title">Social</span> 

@@ -91,7 +91,7 @@ export default function SearchCard() {
 
   const theBigClick = async () => {
     try {
-
+  dispatch(startLoading());
       let category;
 
         if (selectedGenre === 'Adventure') {
@@ -135,9 +135,14 @@ export default function SearchCard() {
         },
       };
 
-      const response = await fetch(`/api/getGames?category=${category}&playercount=${playerCount}&price=${price}`, settings);
+      const categoryID = category;
+      const numPlayers = playerCount;
+
+
+      const response = await fetch(`/api/search?category=${categoryID}&playercount=${playerCount}&price=${price}`, settings);
       const gameList = await response.json();
-      // dispatch(addSearchResults(gameList));
+      console.log(gameList.data.games)
+      dispatch(addSearchResults(gameList.data.games));
 
 
 
@@ -258,7 +263,7 @@ export default function SearchCard() {
         </div>
 
         <div className="card-actions justify-end mt-5">
-          <button className={getGamesStyle}>Get Me Games!</button>
+          <button className={getGamesStyle} onClick={theBigClick}>Get Me Games!</button>
         </div>
       </div>
     </div>
