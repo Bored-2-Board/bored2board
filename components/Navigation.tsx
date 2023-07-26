@@ -11,29 +11,29 @@ export default function Navigation() {
   const homeOnClick = () => {
     setTimeout(() => {
       dispatch(restartLoading());
-    }, 1500)
+    }, 1000)
   }
   
   // taken  off of nav bar- md:px-8 py-2 px-4 
 
   return (
     <div className="z-20 sticky top-0 flex w-full items-center justify-between mt-2 px-2">
-      <div className="navbar bg-base-100 rounded-3xl nav-color border border-slate-400">
+      <div className="navbar bg-base-150 rounded-2xl bg-slate-100 border border-slate-200">
         <Link href='/'>
         {/* TODO: add logo here */}
-          <Image src='/BBCoolLogo.png' alt='BB-Logo' width={50} height={200} className="normal-case text-xl ml-2 text-slate-600 w-full h-full"/>
+          <Image src='/BBCoolLogo.png' alt='BB-Logo' width={400} height={100} className=" w-[50px] h-full transform scale-[200%] ml-4"/>
         </Link>
-        <div className='md:flex hidden w-full justify-center ml-[6.5%]'>
+        <div className='md:flex hidden w-full justify-center ml-[6%]'>
           <Link href='/' className='nav-color' onClick={homeOnClick}>
-            <p className='btn btn-ghost nav-color flex items-center text-slate-600'>Home</p>
+            <p className='btn btn-ghost nav-color flex items-center text-slate-600 hover:text-slate-950'>Home</p>
           </Link>
           <Link href='/search' className='nav-color'>
-            <p className='btn btn-ghost nav-color flex items-center text-slate-600'>Search</p>
+            <p className='btn btn-ghost nav-color flex items-center text-slate-600 hover:text-slate-950'>Search</p>
           </Link>
         </div>
 
         <Link href='/login' className='nav-color'>
-          <p className='btn btn-ghost nav-color flex items-center text-slate-600'>Login</p>
+          <p className='btn btn-ghost nav-color flex items-center text-slate-600 hover:text-slate-950'>Login</p>
         </Link>
 
         {/* if logged in, show profile dropdown */}

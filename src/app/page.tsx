@@ -13,13 +13,17 @@ export default function Home() {
 
   const dispatch = useDispatch();
 
+  //List of games held in the redux store for trending, and for new games
   const popularGameList = useSelector(state => state.popularResult.gameList);
   const newGameList = useSelector(state => state.newResult.gameList);
 
+  // check to see if the cards are loading, we will display loaders if so
   const popularLoading = useSelector(state => state.popularResult.loading);
   const newLoading = useSelector(state => state.newResult.loading);
 
 
+  // This happens once on load, this is a fetch request to the backend to get all the trending/new games so we can update the
+  // redux store and then render them to the page as cards
   useEffect(() => {
     async function getCards(){
     try {
@@ -43,6 +47,8 @@ export default function Home() {
 
   
   // logic for popular and game list renders
+  // this iterates over the current store data and turns that data into a game card
+  // it is then added to an array which we will render in the return statement
 
   // const popularList = [];
   //   for (let i = 0; i < 3; i++) {
@@ -59,7 +65,15 @@ export default function Home() {
   return (
     <div>
     <div className='flex justify-center items-center mt-[3%]'>
-      <h1 className='font-black text-4xl' >Trending Games</h1>
+      <h1 className='font-black text-4xl text-slate-800' >Trending Games</h1>
+      </div>
+    <div className='flex justify-center items-center mt-[2%]'>
+      <GameCard />
+      <GameCard />
+      <GameCard />
+    </div>
+    <div className='flex justify-center items-center mt-[4%] '>
+      <h1 className='font-black text-4xl text-slate-800' >New Games</h1>
       </div>
     <div className='flex justify-center items-center mt-[2%]'>
       <GameCard />
@@ -67,22 +81,14 @@ export default function Home() {
       <GameCard />
     </div>
     <div className='flex justify-center items-center mt-[4%]'>
-      <h1 className='font-black text-4xl' >New Games</h1>
+      <h1 className='font-black text-4xl text-slate-800' >WishList</h1>
       </div>
     <div className='flex justify-center items-center mt-[2%]'>
       <GameCard />
       <GameCard />
       <GameCard />
     </div>
-    <div className='flex justify-center items-center mt-[4%]'>
-      <h1 className='font-black text-4xl' >WishList</h1>
-      </div>
-    <div className='flex justify-center items-center mt-[2%]'>
-      <GameCard />
-      <GameCard />
-      <GameCard />
-    </div>
-    <div className='mt-5'>
+    <div className='mt-[5%]'>
     <Footer/>
     </div>
     </div>

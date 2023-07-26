@@ -21,21 +21,21 @@ console.log(loadingState);
 //   }
 
 
-  return (
-    <div className='flex flex-col md:flex-row md:justify-between ml-5 mr-5 min-w-[50%]'>
+return (
+  <div className='flex flex-col min-h-[1100px]'>
+    <div className='mb-auto flex flex-col md:flex-row md:justify-between ml-5 mr-5'>
       <div className='w-full md:w-2/3 min-w-[50px] flex flex-wrap justify-center mt-[10%] md:mt-[5%] min-w-[30%]'>
-      <div className='w-full md:w-1/3 min-w-[50px] flex flex-wrap justify-center mt-[10%] md:mt-[3%] min-w-[50%]'>
-        <SearchCard/>
-      </div> 
-  </div>
-
-      { loadingState === null ? <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[10%] min-w-[55%] mr-[5%]'>
+        <div className='w-full md:w-1/3 min-w-[50px] flex flex-wrap justify-center mt-[10%] md:mt-[3%] min-w-[50%]'>
+          <SearchCard/>
+        </div> 
+      </div>
+      { loadingState === null ? 
+      <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[10%] min-w-[55%] mr-[5%]'>
         <h1 className='font-black text-4xl text-[#323232]'> Select Options to Search!</h1>
         <Image src='/Search.svg' alt='search-icon' width={300} height={400} className='absolute w-[20%] h-fit mt-[5%]'/>
-        </div>
-       : loadingState === true
-       ?
-       <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] '> 
+      </div>
+      : loadingState === true ?
+      <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] mb-[10%]'> 
         <SkeletonLoader/>
         <SkeletonLoader/>
         <SkeletonLoader/>
@@ -44,12 +44,16 @@ console.log(loadingState);
         <SkeletonLoader/>
       </div>
       :
-      <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] '> 
+      <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] mb-[10%]'> 
         <GameCard/>
         <GameCard/>
         <GameCard/>
       </div>
       }
     </div>
-  )
+    <div className='w-full'>
+      <Footer/>
+    </div>
+  </div>
+)
 }
