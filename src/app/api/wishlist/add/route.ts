@@ -2,12 +2,10 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "../../sql/sql";
 
 export async function POST(req: Request) {
-
   // SQL FUNCTIONS TO CONNECT AND DISCONNECT
   const { dbClient, dbRelease } = await connectToDatabase();
 
   try {
-
     // // GET USERNAME, GAMENAME, COST FROM REQUEST
     // const body = await req.json();
     // const { username, gamename, cost } = body;
@@ -44,27 +42,19 @@ export async function POST(req: Request) {
     - Data: wishlist games
     */
     if (wishlist) {
-      return NextResponse.json({ wishlist: wishlist.rows })
+      return NextResponse.json({ wishlist: wishlist.rows });
     }
-
   } catch (error) {
-
-    console.error('Error with POST request for Updating Wishlist:', error);
-    return NextResponse.json({
-      message: 'Error with POST request for Updating Wishlist',
-      error: (error as Error).message
-    }, { status: 500 });
-
+    console.error("Error with POST request for Updating Wishlist:", error);
+    return NextResponse.json(
+      {
+        message: "Error with POST request for Updating Wishlist",
+        error: (error as Error).message,
+      },
+      { status: 500 }
+    );
   } finally {
-
     // DISCONNECT FROM POOL (Account for if dbRelease is undefined with ? operator)
     dbRelease?.();
   }
-
 }
-
-
-
-
-
-
