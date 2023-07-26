@@ -10,7 +10,7 @@ export async function GET(req: Request) {
 
     // PARAMS
     const category: string = `categories=${categoryID}`;
-    const fields: string = `fields=name,description,price,images,image_url,players,min_players,max_players,playtime,min_playtime,max_playtime,official_url`;
+    const fields: string = `fields=name,description,price,images,image_url,players,min_players,max_players,playtime,min_playtime,max_playtime,url,official_url`;
     const order: string = 'order_by=trending';
 
     // FETCH
