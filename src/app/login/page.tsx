@@ -40,7 +40,7 @@ export default function Login() {
     //         </div>
 
     return (
-        <div className="flex items-center justify-center mt-100 pt-10 pb-10">
+        <div className="flex items-center justify-center mt-[2%] pt-10 pb-10">
             
         <div data-theme="light" className="card lg:card-side bg-base-100 shadow-xl w-2/5 mt-100 min-w-[500px]" >
 
@@ -69,7 +69,7 @@ export default function Login() {
                     <span className="label-text-alt">Bottom Left label</span>
                     <span className="label-text-alt">Bottom Right label</span>
                     </label> */}
-                    <div className="card-actions justify-center pt-5">
+                    <div className="card-actions justify-center pt-[40px]">
                         {/* <Link href='/register'>
                         <button className="btn btn-primary" disabled={disabledButton} onClick={registerUser}>Register</button>
                         </Link> */}

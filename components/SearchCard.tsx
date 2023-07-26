@@ -135,11 +135,9 @@ export default function SearchCard() {
         },
       };
 
-      const categoryID = category;
-      const numPlayers = playerCount;
 
 
-      const response = await fetch(`/api/search?category=${categoryID}&playercount=${playerCount}&price=${price}`, settings);
+      const response = await fetch(`/api/search?categoryID=${category}&numPlayers=${playerCount}&price=${price}`, settings);
       const gameList = await response.json();
       console.log(gameList.data.games)
       dispatch(addSearchResults(gameList.data.games));

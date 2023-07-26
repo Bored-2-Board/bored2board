@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPopularResults, startLoading } from './store/PopularGames/popularGamesSlice'
 import { addNewResults, startLoadingNew } from './store/NewGames/newGameSlice'
+// import { addNewResults, startLoadingNew } from './store/NewGames/newGameSlice'
 
 export default function Home() {
 
@@ -21,6 +22,9 @@ export default function Home() {
   // check to see if the cards are loading, we will display loaders if so
   const popularLoading = useSelector(state => state.popularResult.loading);
   const newLoading = useSelector(state => state.newResult.loading);
+
+  const isLoggedIn = useSelector(state => state.loginResult.isLoggedIn);
+  console.log(isLoggedIn);
 
 
   // This happens once on load, this is a fetch request to the backend to get all the trending/new games so we can update the
@@ -66,7 +70,6 @@ const popularList = [];
     }
   }
 
-  console.log(popularList.length)
 
     const newList = [];
 
@@ -103,13 +106,23 @@ const spookySkeletons = [<SkeletonLoader />, <SkeletonLoader />, <SkeletonLoader
     <div className='flex justify-center items-center mt-[2%]'>
       {newList}
     </div>
-    }
+    } 
     <div className='flex justify-center items-center mt-[4%]'>
       <h1 className='font-black text-4xl text-slate-800' >WishList</h1>
       </div>
-    <div className='flex justify-center items-center mt-[2%]'>
-    {spookySkeletons}
+    { isLoggedIn ?
+      <div className='flex justify-center items-center mt-[2%]'>
+      {spookySkeletons}
+      </div>
+      :
+      <div className='flex flex-col justify-center items-center mt-[4%]'>
+    <h1 className='font-black text-4xl text-slate-600' >Login to view Wishlist!</h1>
+    <Image src='/BBCoolLogo.png' alt='BB-Logo' width={400} height={100} className=" w-[200px] h-full transform scale-[200%] mt-10 mb-2"/>
+    <Link href='/login' className='w-full justify-self-center pl-[41%]'>
+    <button className="btn btn-primary w-[30%] mt-[90px] mx-auto">Login</button>
+    </Link>
     </div>
+}
     <div className='mt-[5%]'>
     <Footer/>
     </div>
