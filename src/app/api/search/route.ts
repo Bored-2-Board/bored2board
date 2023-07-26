@@ -1,58 +1,22 @@
-import { NextResponse, NextRequest } from 'next/server'
-import { createEdgeRouter } from "next-connect"
-import { useParams } from 'next/navigation';
+import { NextResponse } from "next/server";
 
-/* https://www.npmjs.com/package/next-connect */
+export async function GET(req: Request) {
 
-//SETUP FOR NEXT-CONNECT ROUTER
-interface RequestContext {
-  params: {
-    id: string;
-  };
-};
+  try {
 
-const router = createEdgeRouter<NextRequest, RequestContext>();
+    // GET USERID FROM URL PARAMS
+    const searchParams: URLSearchParams = new URL(req.url).searchParams;
+    const categoryID: string | null = searchParams.get('categoryID');
 
-router
-  .post(async (req, event, next) => {
-    // processing or fetch
-    // middleware 1
+    const response = await fetch(`https://api.boardgameatlas.com/api/search?categories=${categoryID}&order_by=trending&client_id=JLBr5npPhV`);
+    const data = await response.json();
+    console.log('trending/route.ts: trending games:', data);
 
-    // Params:
-    // number of player (1-10)
-    // genre
-    // cost (free, less than $40, $40+)
+    return NextResponse.json({ data });
 
+  } catch (error) {
+    console.log('Error with GET request:', error);
+    return NextResponse.json({ message: 'Error with GET request for Game Search', error, status: 500 });
+  }
 
-    const params = useParams();
-    const { num, genre, cost } = params;
-    console.log(params);
-
-    return next() // for next middleware
-  })
-
-  .post(async (req, res, next) => {
-
-    //middleware2
-  })
-
-  .post(async (req, res, next) => {
-
-    //middleware2
-    return NextResponse.json({ response: 'response', status: 200 })
-  })
-
-export async function POST(request: NextRequest, ctx: RequestContext) {
-  return router.run(request, ctx);
 }
-
-/// alternative
-
-
-// export async function POST(request: NextRequest) {
-
-//   // process data
-//   const message = 'data';
-//   return NextResponse.json({});
-
-// }

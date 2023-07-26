@@ -8,45 +8,46 @@ export async function POST(req: Request) {
 
   try {
 
-    // GET USERID FROM REQUEST
+    // // GET USERNAME, GAMENAME, COST FROM REQUEST
+    // const body = await req.json();
+    // const { username, gamename, cost } = body;
+
+    // // GET USER ID
+    // const queryID = `
+    // SELECT id FROM users
+    // WHERE users.username = $1
+    // `;
+
+    // const userID = await dbClient?.query(queryID, [username]);
+
     const body = await req.json();
-    const { username, game, cost } = body;
-
-    // GET USER ID
-    const queryID = `
-    SELECT id FROM users
-    WHERE users.username = $1
-    `;
-
-    const userID = await dbClient?.query(queryID, [username]);
+    const { userID, gamename, cost, image_url } = body;
 
     // ADD TO WISHLIST DB
     const queryWish = `
-    INSERT INTO wishlist (name, cost, user_id)
-    VALUES ($1, $2, $3)
+    INSERT INTO wishlist (name, cost, user_id, image)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
     `;
 
-    const wishlist = await dbClient?.query(queryWish, [game, cost, userID])
+    const wishlist = await dbClient?.query(queryWish, [gamename, cost, userID, image_url])
 
     /* 
     RETURN RESPONSE: 
-    - Empty: message
     - Data: wishlist games
     */
     if (wishlist) {
-      return wishlist.rows.length > 0 ?
-        NextResponse.json({ message: 'Empty Wishlist' }) :
-        NextResponse.json({ wishlist: wishlist.rows })
+      return NextResponse.json({ wishlist: wishlist.rows })
     }
 
   } catch (error) {
 
-    console.error('Error with GET request in Wishlist:', error);
-    return NextResponse.json({ message: 'Error with GET request for Wishlist', error, status: 500 });
+    console.error('Error with POST request for Updating Wishlist:', error);
+    return NextResponse.json({ message: 'Error with POST request for Updating Wishlist', error, status: 500 });
 
   } finally {
 
-    // DISCONNECT FROM DB (Account for if dbRelease is null with ? operator)
+    // DISCONNECT FROM POOL (Account for if dbRelease is undefined with ? operator)
     dbRelease?.();
   }
 

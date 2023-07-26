@@ -12,11 +12,18 @@ export async function GET(req: Request) {
     const searchParams: URLSearchParams = new URL(req.url).searchParams;
     const userID: string | null = searchParams.get('userID');
 
+    // // GET USER ID
+    // const queryID = `
+    // SELECT id FROM users
+    // WHERE users.username = $1
+    // `;
+
+    // const userID = await dbClient?.query(queryID, [username]);
+
     // QUERY DATABASE FOR WISHLIST
     const queryWishlist = `
     SELECT * FROM wishlist
     WHERE user_id = $1
-    RETURNING *
     `;
 
     const wishlist = await dbClient?.query(queryWishlist, [userID]);
@@ -27,9 +34,8 @@ export async function GET(req: Request) {
     */
     if (wishlist) {
       return wishlist.rows.length > 0 ?
-        NextResponse.json({ message: 'Empty Wishlist' }) :
-        NextResponse.json({ wishlist: wishlist.rows })
-
+        NextResponse.json({ wishlist: wishlist.rows }) :
+        NextResponse.json({ message: 'Empty Wishlist' })
     }
 
   } catch (error) {
@@ -39,7 +45,7 @@ export async function GET(req: Request) {
 
   } finally {
 
-    // DISCONNECT FROM DB (Account for if dbRelease is null with ? operator)
+    // DISCONNECT FROM DB (Account for if dbRelease is undefined with ? operator)
     dbRelease?.();
   }
 
