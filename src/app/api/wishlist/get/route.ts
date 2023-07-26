@@ -41,7 +41,11 @@ export async function GET(req: Request) {
   } catch (error) {
 
     console.error('Error with GET request in Wishlist:', error);
-    return NextResponse.json({ message: 'Error with GET request for Wishlist', error, status: 500 });
+    return NextResponse.json(
+      {
+        message: 'Error with GET request for Wishlist',
+        error: (error as Error).message
+      }, { status: 500 });
 
   } finally {
 

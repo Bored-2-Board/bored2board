@@ -20,14 +20,16 @@ export async function POST(req: Request) {
     const queryRegister = `
     INSERT INTO users (email, display_name, username, password)
     VALUES ($1, $2, $3, $4)
-    RETURNING id
+    RETURNING id, display_name, email
     `;
 
     const registerResponse = await dbClient?.query(queryRegister, [email, name, username, hashPassword]);
     console.log('registerResponse', registerResponse?.rows);
 
+    const { id }: { id: number } = registerResponse?.rows[0];
+
     if (registerResponse?.rows[0]?.id) {
-      return NextResponse.json({ message: 'Success!', userID: registerResponse?.rows[0].id });
+      return NextResponse.json({ message: 'Success!', userID: id, name, email });
     } else throw new Error('Error in Signing Up: User Already Exists')
 
   } catch (error) {
