@@ -19,6 +19,7 @@
     "@types/react-dom": "18.2.7",
     "@types/react-redux": "^7.1.25",
     "autoprefixer": "10.4.14",
+    "bcrypt": "^5.1.0",
     "daisyui": "^3.4.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
@@ -33,6 +34,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/pg": "^8.10.2"
   }
 }

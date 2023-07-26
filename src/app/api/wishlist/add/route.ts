@@ -43,7 +43,7 @@ export async function POST(req: Request) {
   } catch (error) {
 
     console.error('Error with POST request for Updating Wishlist:', error);
-    return NextResponse.json({ message: 'Error with POST request for Updating Wishlist', error, status: 500 });
+    return NextResponse.json({ message: 'Error with POST request for Updating Wishlist', error }, { status: 500 });
 
   } finally {
 
