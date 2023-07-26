@@ -8,7 +8,13 @@ export async function GET(req: Request) {
     const searchParams: URLSearchParams = new URL(req.url).searchParams;
     const categoryID: string | null = searchParams.get('categoryID');
 
-    const response = await fetch(`https://api.boardgameatlas.com/api/search?categories=${categoryID}&order_by=trending&client_id=JLBr5npPhV`);
+    // PARAMS
+    const category: string = `categories=${categoryID}`;
+    const fields: string = `fields=name,description,price,images,image_url,players,min_players,max_players,playtime,min_playtime,max_playtime,official_url`;
+    const order: string = 'order_by=trending';
+
+    // FETCH
+    const response = await fetch(`https://api.boardgameatlas.com/api/search?${category}&${order}&${fields}client_id=JLBr5npPhV`);
     const data = await response.json();
     console.log('trending/route.ts: trending games:', data);
 
