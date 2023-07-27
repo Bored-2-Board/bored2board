@@ -14,8 +14,8 @@ export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
-    addLoginStatus: (state) => {
-      state.isLoggedIn = true;
+    addLoginStatus: (state, action) => {
+      state.isLoggedIn = action.payload;
     },
   },
 })

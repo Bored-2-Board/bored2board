@@ -119,7 +119,7 @@ export default function SearchCard() {
         } else if (selectedGenre === 'Trivia') {
           category = 'YGHGDjahKY'
         } else if (selectedGenre === 'Select Genre') {
-          category = 'Random'
+          category = ''
         };
 
  // category // playerCount // price

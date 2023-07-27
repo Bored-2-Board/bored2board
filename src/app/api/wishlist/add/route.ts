@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
     // ADD TO WISHLIST DB
     const queryWish = `
-    INSERT INTO wishlist (name, cost, user_id, image, num_players, game_length, link)
+    INSERT INTO wishlist (name, cost, user_id, image, num_players, game_length, url)
     VALUES ($1, $2, $3, $4, $5, $6, $7);
     `;
 

@@ -17,7 +17,6 @@ export const popularGamesSlice = createSlice({
   initialState,
   reducers: {
     addPopularResults: (state, action) => {
-      console.log(state.gameList);
       state.gameList = action.payload;
       state.loading = false;
     },
