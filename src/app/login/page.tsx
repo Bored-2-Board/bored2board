@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addLoginStatus } from "../store/LoggedIn/loginSlice";
 import { updateData } from "../store/UserData/userDataSlice";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -37,10 +37,9 @@ export default function Login() {
 
   const loginUser = async () => {
     try {
-      
       // send backend the user and password
       // check if its valid
-      console.log(username, password)
+      console.log(username, password);
       const settings = {
         method: "POST",
         headers: {
@@ -56,14 +55,21 @@ export default function Login() {
       const data = await fetch("/api/auth/signin", settings);
       const response = await data.json();
 
-        console.log('response is', response);
-      if (response.message === 'Success!') {
+      console.log("response is", response);
+      if (response.message === "Success!") {
         setError(false);
         dispatch(addLoginStatus(true));
-        dispatch(updateData({name: response.name, email: response.email, id: response.userID, username: username})); // or grab it from state ^
+        dispatch(
+          updateData({
+            name: response.name,
+            email: response.email,
+            id: response.userID,
+            username: username,
+          })
+        ); // or grab it from state ^
         router.push("/");
       } else {
-        console.log('hit else block')
+        console.log("hit else block");
         setError(true);
         setUsername("");
         setPassword("");
@@ -74,7 +80,7 @@ export default function Login() {
       // redirect them to home
     } catch (e) {
       // if its not, give them some kind of alert that it failed
-      console.log('hit catch block')
+      console.log("hit catch block");
 
       setError(true);
       setUsername("");

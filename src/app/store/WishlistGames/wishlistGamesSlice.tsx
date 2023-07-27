@@ -1,6 +1,5 @@
-'use client';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+"use client";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface wishlistGamesState {
   gameList: any;
@@ -10,22 +9,24 @@ interface wishlistGamesState {
 const initialState: wishlistGamesState = {
   gameList: [],
   loading: false,
-}
+};
 
 export const wishlistGamesSlice = createSlice({
-  name: 'wishlistGames',
+  name: "wishlistGames",
   initialState,
   reducers: {
     addWishlistGame: (state, action) => {
-      state.gameList.push(action.payload)
+      state.gameList.push(action.payload);
       state.loading = false;
     },
     addAllWishlistGames: (state, action) => {
-      state.gameList = action.payload
+      state.gameList = action.payload;
       state.loading = false;
     },
     removeWishlistGame: (state, action) => {
-      state.gameList = state.gameList.filter(game => game.name !== action.payload); // name
+      state.gameList = state.gameList.filter(
+        (game) => game.name !== action.payload
+      ); // name
     },
     startLoadingWish: (state) => {
       state.loading = true;
@@ -34,8 +35,14 @@ export const wishlistGamesSlice = createSlice({
       state.loading = null;
     },
   },
-})
+});
 
-export const { addWishlistGame, addAllWishlistGames, startLoadingWish, restartLoadingWish, removeWishlistGame} = wishlistGamesSlice.actions
+export const {
+  addWishlistGame,
+  addAllWishlistGames,
+  startLoadingWish,
+  restartLoadingWish,
+  removeWishlistGame,
+} = wishlistGamesSlice.actions;
 
-export default wishlistGamesSlice.reducer
+export default wishlistGamesSlice.reducer;

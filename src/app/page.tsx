@@ -36,7 +36,7 @@ export default function Home() {
 
   const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
 
-  const userDataID = useSelector(state => state.userResult.id)
+  const userDataID = useSelector((state) => state.userResult.id);
 
   console.log(wishlistGameList);
 
@@ -58,19 +58,30 @@ export default function Home() {
 
         if (isLoggedIn) {
           console.log("HITTING");
-          const newGameList = await fetch(`/api/wishlist/get?userID=${userDataID}`);
-          const newWishlist = await newGameList.json()
+          const newGameList = await fetch(
+            `/api/wishlist/get?userID=${userDataID}`
+          );
+          const newWishlist = await newGameList.json();
 
-          if (newWishlist.message !== 'Empty Wishlist') {
-          if (newWishlist.wishlist.length !== 0) {
-            const modifiedData = [];
-            newWishlist.wishlist.forEach(el => {
-              modifiedData.push({key: el.id, price:`$${el.cost}`, src:el.image, name:el.name, favorited:true, playerCount:el.num_players, gameLength:el.game_length, link:el.url})
-            });
-          dispatch(addAllWishlistGames(modifiedData))
+          if (newWishlist.message !== "Empty Wishlist") {
+            if (newWishlist.wishlist.length !== 0) {
+              const modifiedData = [];
+              newWishlist.wishlist.forEach((el) => {
+                modifiedData.push({
+                  key: el.id,
+                  price: `$${el.cost}`,
+                  src: el.image,
+                  name: el.name,
+                  favorited: true,
+                  playerCount: el.num_players,
+                  gameLength: el.game_length,
+                  link: el.url,
+                });
+              });
+              dispatch(addAllWishlistGames(modifiedData));
+            }
           }
         }
-      }
       } catch (e) {
         console.log(e);
       }
@@ -124,13 +135,13 @@ export default function Home() {
   }
 
   const wishListGames = [];
-  
+
   // console.log('current store', wishlistGameList[0].name)
-  console.log('RIGHT BEFORE ADDED', wishlistGameList)
+  console.log("RIGHT BEFORE ADDED", wishlistGameList);
   if (wishlistGameList) {
     if (wishlistGameList.length !== 0) {
       for (let i = 0; i < wishlistGameList.length; i++) {
-        console.log(wishlistGameList[i].name)
+        console.log(wishlistGameList[i].name);
         wishListGames.push(
           <GameCard
             key={i}
@@ -190,22 +201,21 @@ export default function Home() {
         </div>
       ) : isLoggedIn && wishListGames.length === 0 ? (
         <div className="flex flex-col justify-center items-center mt-[4%]">
-        <h1 className="font-black text-4xl text-slate-600">
-          Wishlist Empty!
-        </h1>
-        <Image
-          src="/BBCoolLogo.png"
-          alt="BB-Logo"
-          width={400}
-          height={100}
-          className=" w-[200px] h-full transform scale-[200%] mt-10 mb-2"
-        />
-      </div>
-      ) :  isLoggedIn && wishLoading === false ? (
+          <h1 className="font-black text-4xl text-slate-600">
+            Wishlist Empty!
+          </h1>
+          <Image
+            src="/BBCoolLogo.png"
+            alt="BB-Logo"
+            width={400}
+            height={100}
+            className=" w-[200px] h-full transform scale-[200%] mt-10 mb-2"
+          />
+        </div>
+      ) : isLoggedIn && wishLoading === false ? (
         <div className="flex justify-center flex-wrap items-center mt-[2%]">
-        {wishListGames}
-      </div>
-
+          {wishListGames}
+        </div>
       ) : (
         <div className="flex flex-col justify-center items-center mt-[4%]">
           <h1 className="font-black text-4xl text-slate-600">

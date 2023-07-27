@@ -11,8 +11,8 @@ export async function DELETE(req: Request) {
     const userID: string | null = searchParams.get("userID");
     const gamename: string | null = searchParams.get("name");
 
-    console.log('name: ', gamename);
-    console.log('id: ', userID);
+    console.log("name: ", gamename);
+    console.log("id: ", userID);
 
     // QUERY DATABASE FOR WISHLIST
     const queryDelete = `
@@ -20,7 +20,10 @@ export async function DELETE(req: Request) {
     WHERE user_id = $1 AND name = $2
     `;
 
-    const deleteResponse = await dbClient?.query(queryDelete, [userID, gamename]);
+    const deleteResponse = await dbClient?.query(queryDelete, [
+      userID,
+      gamename,
+    ]);
 
     console.log("deletedGame:", deleteResponse);
 
@@ -28,16 +31,15 @@ export async function DELETE(req: Request) {
           - Empty: message
           - Data: wishlist games
     */
-    if ((deleteResponse?.rowCount as number)) {
+    if (deleteResponse?.rowCount as number) {
       return NextResponse.json({ message: "Entry Successfully Deleted!" });
-    } else throw new Error('Entry does not exist')
-
-
+    } else throw new Error("Entry does not exist");
   } catch (error) {
     console.error("Error with DELETE request in Wishlist:", error);
     return NextResponse.json(
       {
-        message: "Error with DELETE request in Wishlist: " + (error as Error).message,
+        message:
+          "Error with DELETE request in Wishlist: " + (error as Error).message,
         error: (error as Error).message,
       },
       { status: 501 }

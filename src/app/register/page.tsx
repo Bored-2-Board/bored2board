@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addLoginStatus } from "../store/LoggedIn/loginSlice";
 import { updateData } from "../store/UserData/userDataSlice";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -88,16 +88,21 @@ export default function Login() {
 
       const data = await fetch("/api/auth/signup", settings);
       const response = await data.json();
-      console.log('entire response', response)
-      console.log('response status', response.status)
-      if (response.message === 'Success!') {
+      console.log("entire response", response);
+      console.log("response status", response.status);
+      if (response.message === "Success!") {
         setError(false);
         dispatch(addLoginStatus(true));
-        dispatch(updateData({name: response.name, email: response.email, id: response.userID, username: username})); // or grab it from state ^
+        dispatch(
+          updateData({
+            name: response.name,
+            email: response.email,
+            id: response.userID,
+            username: username,
+          })
+        ); // or grab it from state ^
         router.push("/");
       }
-
-
     } catch (e) {
       setError(true);
       setUsername("");

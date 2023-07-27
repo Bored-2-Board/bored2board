@@ -2,15 +2,13 @@ import { NextResponse } from "next/server";
 import connectToDatabase from "../../sql/sql";
 
 export async function GET(req: Request) {
-
   // SQL FUNCTIONS TO CONNECT AND DISCONNECT
   const { dbClient, dbRelease } = await connectToDatabase();
 
   try {
-
     // GET USERID FROM URL PARAMS
     const searchParams: URLSearchParams = new URL(req.url).searchParams;
-    const userID: string | null = searchParams.get('userID');
+    const userID: string | null = searchParams.get("userID");
 
     // // GET USER ID
     // const queryID = `
@@ -33,30 +31,21 @@ export async function GET(req: Request) {
           - Data: wishlist games
     */
     if (wishlist) {
-      return wishlist.rows.length > 0 ?
-        NextResponse.json({ wishlist: wishlist.rows }) :
-        NextResponse.json({ message: 'Empty Wishlist' })
+      return wishlist.rows.length > 0
+        ? NextResponse.json({ wishlist: wishlist.rows })
+        : NextResponse.json({ message: "Empty Wishlist" });
     }
-
   } catch (error) {
-
-    console.error('Error with GET request in Wishlist:', error);
+    console.error("Error with GET request in Wishlist:", error);
     return NextResponse.json(
       {
-        message: 'Error with GET request for Wishlist',
-        error: (error as Error).message
-      }, { status: 500 });
-
+        message: "Error with GET request for Wishlist",
+        error: (error as Error).message,
+      },
+      { status: 500 }
+    );
   } finally {
-
     // DISCONNECT FROM DB (Account for if dbRelease is undefined with ? operator)
     dbRelease?.();
   }
-
 }
-
-
-
-
-
-

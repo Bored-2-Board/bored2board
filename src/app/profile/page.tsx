@@ -5,8 +5,5 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function Profile() {
-
-    return (
-        <div>add profile</div>
-    )
+  return <div>add profile</div>;
 }

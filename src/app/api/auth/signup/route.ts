@@ -1,17 +1,21 @@
 import connectToDatabase from "../../sql/sql";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-
   // CONNECT TO DB
   const { dbClient, dbRelease } = await connectToDatabase();
 
   try {
-
     // RECEIVE USER LOGIN INFO
     const body = await req.json();
-    const { email, name, username, password }: { email: string, name: string, username: string, password: string } = body;
+    const {
+      email,
+      name,
+      username,
+      password,
+    }: { email: string; name: string; username: string; password: string } =
+      body;
 
     // BCRYPT PASSWORD
     const hashPassword = await bcrypt.hash(password, 10);
@@ -23,19 +27,30 @@ export async function POST(req: Request) {
     RETURNING id, display_name, email
     `;
 
-    const registerResponse = await dbClient?.query(queryRegister, [email, name, username, hashPassword]);
-    console.log('registerResponse', registerResponse?.rows);
+    const registerResponse = await dbClient?.query(queryRegister, [
+      email,
+      name,
+      username,
+      hashPassword,
+    ]);
+    console.log("registerResponse", registerResponse?.rows);
 
     const { id }: { id: number } = registerResponse?.rows[0];
 
     if (registerResponse?.rows[0]?.id) {
-      return NextResponse.json({ message: 'Success!', userID: id, name, email });
-    } else throw new Error('Error in Signing Up: User Already Exists')
-
+      return NextResponse.json({
+        message: "Success!",
+        userID: id,
+        name,
+        email,
+      });
+    } else throw new Error("Error in Signing Up: User Already Exists");
   } catch (error) {
-    console.error('Error Message', error);
-    return NextResponse.json({ error: (error as Error).message }, { status: 401 });
-
+    console.error("Error Message", error);
+    return NextResponse.json(
+      { error: (error as Error).message },
+      { status: 401 }
+    );
   } finally {
     dbRelease?.();
   }

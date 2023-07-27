@@ -1,6 +1,5 @@
-'use client';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+"use client";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface searchResultState {
   gameList: any;
@@ -10,10 +9,10 @@ interface searchResultState {
 const initialState: searchResultState = {
   gameList: [],
   loading: null,
-}
+};
 
 export const searchResultSlice = createSlice({
-  name: 'searchResult',
+  name: "searchResult",
   initialState,
   reducers: {
     addSearchResults: (state, action) => {
@@ -25,10 +24,11 @@ export const searchResultSlice = createSlice({
     },
     restartLoading: (state) => {
       state.loading = null;
-    }
+    },
   },
-})
+});
 
-export const { addSearchResults, startLoading, restartLoading } = searchResultSlice.actions
+export const { addSearchResults, startLoading, restartLoading } =
+  searchResultSlice.actions;
 
-export default searchResultSlice.reducer
+export default searchResultSlice.reducer;

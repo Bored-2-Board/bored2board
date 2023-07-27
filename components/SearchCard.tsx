@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addSearchResults, startLoading } from '../src/app/store/SearchResults/searchResultSlice'
+import {
+  addSearchResults,
+  startLoading,
+} from "../src/app/store/SearchResults/searchResultSlice";
 
 export default function SearchCard() {
-
   const [anything, setAnything] = useState(false);
   const [genre, setGenre] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
@@ -91,38 +93,38 @@ export default function SearchCard() {
 
   const theBigClick = async () => {
     try {
-  dispatch(startLoading());
+      dispatch(startLoading());
       let category;
 
-        if (selectedGenre === 'Adventure') {
-          category = 'KUBCKBkGxV';
-        } else if (selectedGenre === 'Card Game') {
-          category = 'eX8uuNlQkQ'
-        } else if (selectedGenre === 'Competitive') {
-          category = 'pacCjl7His'
-        } else if (selectedGenre === 'Crime') {
-          category = '7DfHn28Pcf'
-        } else if (selectedGenre === 'Deduction') {
-          category = 'bCBXJy9qDw'
-        } else if (selectedGenre === 'Drinking') {
-          category = 'We3MM46qBr'
-        } else if (selectedGenre === 'Family Game') {
-          category = '7rV11PKqME'
-        } else if (selectedGenre === 'Fantasy') {
-          category = 'ZTneo8TaIO'
-        } else if (selectedGenre === 'Mystery') {
-          category = 'BBZb2d0ePt'
-        } else if (selectedGenre === 'Party Game') {
-          category = 'X8J7RM6dxX'
-        } else if (selectedGenre === 'Puzzle') {
-          category = 'WVMOS3s2pb'
-        } else if (selectedGenre === 'Trivia') {
-          category = 'YGHGDjahKY'
-        } else if (selectedGenre === 'Select Genre') {
-          category = ''
-        };
+      if (selectedGenre === "Adventure") {
+        category = "KUBCKBkGxV";
+      } else if (selectedGenre === "Card Game") {
+        category = "eX8uuNlQkQ";
+      } else if (selectedGenre === "Competitive") {
+        category = "pacCjl7His";
+      } else if (selectedGenre === "Crime") {
+        category = "7DfHn28Pcf";
+      } else if (selectedGenre === "Deduction") {
+        category = "bCBXJy9qDw";
+      } else if (selectedGenre === "Drinking") {
+        category = "We3MM46qBr";
+      } else if (selectedGenre === "Family Game") {
+        category = "7rV11PKqME";
+      } else if (selectedGenre === "Fantasy") {
+        category = "ZTneo8TaIO";
+      } else if (selectedGenre === "Mystery") {
+        category = "BBZb2d0ePt";
+      } else if (selectedGenre === "Party Game") {
+        category = "X8J7RM6dxX";
+      } else if (selectedGenre === "Puzzle") {
+        category = "WVMOS3s2pb";
+      } else if (selectedGenre === "Trivia") {
+        category = "YGHGDjahKY";
+      } else if (selectedGenre === "Select Genre") {
+        category = "";
+      }
 
- // category // playerCount // price
+      // category // playerCount // price
       // dispatch(startLoading());
       let playerCount = players;
       let price = selectedButton;
@@ -135,15 +137,13 @@ export default function SearchCard() {
         },
       };
 
-
-
-      const response = await fetch(`/api/search?categoryID=${category}&numPlayers=${playerCount}&price=${price}`, settings);
+      const response = await fetch(
+        `/api/search?categoryID=${category}&numPlayers=${playerCount}&price=${price}`,
+        settings
+      );
       const gameList = await response.json();
-      console.log(gameList.data.games)
+      console.log(gameList.data.games);
       dispatch(addSearchResults(gameList.data.games));
-
-
-
     } catch (e) {
       console.log(e);
     }
@@ -156,9 +156,17 @@ export default function SearchCard() {
     >
       <figure></figure>
       <div className="card-body">
-      <Image src='/BBCoolLogo.png' alt='BB-Logo' width={400} height={100} className=" w-[50px] h-full transform scale-[200%] ml-2"/>
+        <Image
+          src="/BBCoolLogo.png"
+          alt="BB-Logo"
+          width={400}
+          height={100}
+          className=" w-[50px] h-full transform scale-[200%] ml-2"
+        />
         <br></br>
-        <p className='font-semibold text-slate-700'>How many players do you have?</p>
+        <p className="font-semibold text-slate-700">
+          How many players do you have?
+        </p>
         <input
           type="range"
           min={1}
@@ -180,7 +188,9 @@ export default function SearchCard() {
           <span>10</span>
         </div>
         <br></br>
-        <p className='font-semibold text-slate-700' >What do you want to play?</p>
+        <p className="font-semibold text-slate-700">
+          What do you want to play?
+        </p>
         <details className="dropdown" open={dropdownOpen}>
           <summary
             className={!genre ? dropdownActive : dropdownInactive}
@@ -229,7 +239,7 @@ export default function SearchCard() {
           </ul>
         </details>
         <div className="flex w-[100%] items-center justify-center pl-[150px]">
-          <p className='font-semibold text-slate-700' >OR</p>
+          <p className="font-semibold text-slate-700">OR</p>
         </div>
         <button
           className={anything ? trueColor : falseColor}
@@ -238,7 +248,9 @@ export default function SearchCard() {
           ANYTHING
         </button>
         <br></br>
-        <p className='font-semibold text-slate-700' >What&apos;s your price point?</p>
+        <p className="font-semibold text-slate-700">
+          What&apos;s your price point?
+        </p>
         <div className="flex justify-center space-between">
           <button
             className={selectedButton === "free" ? selectedYes : selectedNo}
@@ -261,7 +273,9 @@ export default function SearchCard() {
         </div>
 
         <div className="card-actions justify-end mt-5">
-          <button className={getGamesStyle} onClick={theBigClick}>Get Me Games!</button>
+          <button className={getGamesStyle} onClick={theBigClick}>
+            Get Me Games!
+          </button>
         </div>
       </div>
     </div>

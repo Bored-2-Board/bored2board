@@ -1,6 +1,5 @@
-'use client';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+"use client";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface popularGamesState {
   gameList: any;
@@ -10,10 +9,10 @@ interface popularGamesState {
 const initialState: popularGamesState = {
   gameList: [],
   loading: true,
-}
+};
 
 export const popularGamesSlice = createSlice({
-  name: 'popularGames',
+  name: "popularGames",
   initialState,
   reducers: {
     addPopularResults: (state, action) => {
@@ -25,10 +24,11 @@ export const popularGamesSlice = createSlice({
     },
     restartLoading: (state) => {
       state.loading = null;
-    }
+    },
   },
-})
+});
 
-export const { addPopularResults, startLoading, restartLoading } = popularGamesSlice.actions
+export const { addPopularResults, startLoading, restartLoading } =
+  popularGamesSlice.actions;
 
-export default popularGamesSlice.reducer
+export default popularGamesSlice.reducer;

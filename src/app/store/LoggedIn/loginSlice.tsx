@@ -1,25 +1,24 @@
-'use client';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+"use client";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface loginState {
   isLoggedIn: boolean;
 }
 
 const initialState: loginState = {
-    isLoggedIn: false,
-}
+  isLoggedIn: false,
+};
 
 export const loginSlice = createSlice({
-  name: 'login',
+  name: "login",
   initialState,
   reducers: {
     addLoginStatus: (state, action) => {
       state.isLoggedIn = action.payload;
     },
   },
-})
+});
 
-export const { addLoginStatus } = loginSlice.actions
+export const { addLoginStatus } = loginSlice.actions;
 
-export default loginSlice.reducer
+export default loginSlice.reducer;
