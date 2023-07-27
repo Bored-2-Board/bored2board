@@ -4,6 +4,8 @@ import searchResultsReducer from './SearchResults/searchResultSlice'
 import popularResultsReducer from './PopularGames/popularGamesSlice'
 import newResultsReducer from './NewGames/newGameSlice'
 import loginReducer from './LoggedIn/loginSlice'
+import userReducer from './UserData/userDataSlice'
+import wishlistReducer from './WishlistGames/wishlistGamesSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     popularResult: popularResultsReducer,
     newResult: newResultsReducer,
     loginResult: loginReducer,
+    userResult: userReducer,
+    wishlistResult: wishlistReducer,
   },
 })
 

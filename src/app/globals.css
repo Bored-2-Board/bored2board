@@ -10,8 +10,6 @@
   image-rendering: auto;
 }
 
-
-
 .button {
   @apply font-bold
 }

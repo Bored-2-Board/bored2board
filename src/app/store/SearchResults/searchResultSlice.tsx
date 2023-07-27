@@ -17,7 +17,6 @@ export const searchResultSlice = createSlice({
   initialState,
   reducers: {
     addSearchResults: (state, action) => {
-      console.log(state.gameList)
       state.gameList = action.payload;
       state.loading = false;
     },
