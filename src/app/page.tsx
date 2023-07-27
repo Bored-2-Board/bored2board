@@ -35,10 +35,7 @@ export default function Home() {
   const wishLoading = useSelector((state) => state.wishlistResult.loading);
 
   const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
-
   const userDataID = useSelector((state) => state.userResult.id);
-
-  console.log(wishlistGameList);
 
   // This happens once on load, this is a fetch request to the backend to get all the trending/new games so we can update the
   // redux store and then render them to the page as cards
@@ -57,7 +54,6 @@ export default function Home() {
         dispatch(addNewResults(newGameList.data.games));
 
         if (isLoggedIn) {
-          console.log("HITTING");
           const newGameList = await fetch(
             `/api/wishlist/get?userID=${userDataID}`
           );
