@@ -102,8 +102,6 @@ export default function Login() {
 
       const data = await fetch("/api/auth/signup", settings);
       const response = await data.json();
-      console.log('entire response', response)
-      console.log('response status', response.status)
       // if all of the info checks out, were going to update the redux store with their info, set signed in status to true, and send them to the home page
       if (response.message === 'Success!') {
         setError(false);

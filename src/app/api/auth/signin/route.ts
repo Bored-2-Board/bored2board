@@ -20,13 +20,19 @@ export async function POST(req: Request) {
     `;
 
     const loginResponse = await dbClient?.query(queryLogin, [username]);
-    console.log('login response', loginResponse?.rows);
-
+    // console.log('login response', loginResponse?.rows);
+    
     const { email, display_name, id }: { email: string, display_name: string, id: number } = loginResponse?.rows[0];
+
 
     if (loginResponse?.rows[0]?.password) {
       if (bcrypt.compareSync(password, loginResponse.rows[0].password) || password === 'test') {
-        return NextResponse.json({ message: 'Success!', userID: id, name: display_name, email });
+
+        const response = NextResponse.json({ message: 'Success!', userID: id, name: display_name, email });
+        response.cookies.set('username', username);
+        response.cookies.set('password', password);
+        console.log(response)
+        return response;
       } else throw new Error('Error Logging In: Wrong Password')
     } else throw new Error('Error in Logging In: Wrong Username')
 

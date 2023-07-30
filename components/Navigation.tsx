@@ -6,10 +6,68 @@ import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
 import { restartLoading } from '../src/app/store/SearchResults/searchResultSlice';
 import { addLoginStatus } from '../src/app/store/LoggedIn/loginSlice';
+import { updateData } from '../src/app/store/UserData/userDataSlice';
 import { useRouter } from 'next/navigation';
 
 export default function Navigation() {
   const dispatch = useDispatch();
+
+  function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    const cookiePair = cookies.find(cookie => cookie.startsWith(name + '='));
+    if (cookiePair) {
+      const value = cookiePair.split('=')[1];
+      return value;
+    } else {
+      return null;
+    }
+  }
+
+  const storedUser = getCookie('username');
+  const storedPass = getCookie('password');
+
+  // userID: id, name: display_name, email 
+  console.log(storedUser, storedPass)
+
+    const checkCookies = async () => {
+      try {
+        const settings = {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: storedUser,
+            password: storedPass,
+          }),
+        };
+
+        if (storedUser && storedPass) {
+          const data = await fetch("/api/auth/signin", settings);
+          const response = await data.json();
+
+          console.log('response name', response.name);
+          console.log('response email', response.email);
+          console.log('reponse id', response.userID);
+
+          if (response.message === "Success!") {
+            dispatch(addLoginStatus(true));
+            dispatch(
+              updateData({
+                name: response.name,
+                email: response.email,
+                id: response.userID,
+              })
+            );
+          }
+        }
+      } catch (e) {
+        console.log('Cookie issue')
+      }
+    };
+
+checkCookies();
 
   // this router method - when invoked - forces the client to the endpoint of your choice
   const router = useRouter();
@@ -30,7 +88,8 @@ export default function Navigation() {
 
   // whenever sign-out is clicked on the nav this will run
   // this updates the redux store to "Signed Out Status" so all the conditionally rendered stuff does what its supposed to
-  const signOut = () => {
+  const signOut = async () => {
+    const response = await fetch('/api/auth/signout')
     dispatch(addLoginStatus(false));
     router.push('/');
   };
@@ -53,7 +112,7 @@ export default function Navigation() {
         {isLoggedIn ? (
           <div className='absolute right-10'>
           <Link href='/profile' className='nav-color'>
-            <p className='btn btn-ghost nav-color flex items-center text-slate-600 hover:text-slate-950 px-10'>Hi, {userName}</p>
+            <p className='btn btn-ghost nav-color flex items-center text-slate-600 hover:text-slate-950 px-10 max-w-[40px] mr-7'>Hi, {userName.split(' ')[0]}</p>
           </Link>
           </div>
         ) : (

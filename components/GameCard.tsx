@@ -21,7 +21,6 @@ const wishlistGameList = useSelector(
 
   // this is checking if the given game card is present in the redux store, if it is, we set favorited to true so that
   // the heart lights up, and onClick it will get deleted from the db instead of trying to be added
-console.log(name);
   useEffect(() => {
     for (let i = 0; i < wishlistGameList.length; i++) {
       if (name === wishlistGameList[i].name) {
@@ -36,12 +35,10 @@ console.log(name);
 
   // this is grabbing the currently signed in user's ID assigned by the backend 
   const userData = useSelector(state => state.userResult.id)
-  console.log('USER DATA ID',userData)
 
   // this is the onClick function to add a game to the database that relates to the the current user
   const addToWishList = async () => {
     const newPrice = Number(price.slice(1))
-    console.log(newPrice)
     const settings = {
       method: "POST",
       headers: {
@@ -105,25 +102,23 @@ console.log(name);
   }
 
   // return statement
-  // Need to update some styling so that the card looks nice even when there is a long name or attribute
-  console.log(wish);
   return (
       <div className="card flex min-w-[300px] max-w-[10%] min-h-[435px] max-h-[435px] g-base-100 shadow-xl m-3">
         <div className='flex justify-center'>
-          <img src={src ? src : "/dbd.jpg"} alt='dbd' width={200} height={200} id='gamecard-image' className='rounded-2xl w-[95%] max-h-[200px] mt-2'/>
+          <img src={src ? src : "/dbd.jpg"} alt='dbd' width={200} height={190} id='gamecard-image' className='rounded-2xl w-[95%] max-h-[190px] mt-2'/>
         </div>
         <div className="card-body flex-col max-w-full overflow-hidden">
-          <p className='text-slate-600 font-bold'>Name: {name}</p>
-          <p className='text-slate-600 font-bold' >Player Count: {playerCount}</p>
-          <p className='text-slate-600 font-bold' >Game Length: {gameLength} min</p>
-          <p className='text-slate-600 font-bold' >Price: {price}</p>
-          <a href={link ? link : `https://www.google.com/search?q=${name}`} target='_blank' className='underline text-slate-500 font-semibold'>Check it out here!</a>
+          <p className='text-slate-600 font-black'>Name: <span className='font-bold'>{name}</span></p>
+          <p className='text-slate-600 font-black'>Player Count: <span className='font-bold'>{playerCount}</span></p>
+          <p className='text-slate-600 font-black'>Game Length: <span className='font-bold'>{gameLength} min</span></p>
+          <p className='text-slate-600 font-black'>Price: <span className='font-bold'>{price}</span></p>
+          <a href={link ? link : `https://www.google.com/search?q=${name}`} target='_blank' className='basic-transition underline text-slate-500 font-semibold hover:text-slate-600'>Check it out here!</a>
         </div>
         <div className="flex justify-end rating gap-1 px-2 mb-2">
           <input 
             type="radio"
             name="rating-1"
-            className={`${wish && userData !== '' ? "mask mask-heart bg-red-400" : "mask mask-heart bg-gray-400"}`}
+            className={`${wish && userData !== '' ? "mask mask-heart bg-red-400" : "basic-transition mask mask-heart bg-gray-400 hover:bg-slate-600"}`}
             onClick={wishlistGame}>
           </input>
         </div>

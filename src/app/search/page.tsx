@@ -48,6 +48,11 @@ return (
         <SkeletonLoader/>
         <SkeletonLoader/>
       </div>
+      : gameList.length === 0 ?
+      <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[10%] min-w-[55%] mr-[5%]'>
+        <h1 className='font-black text-4xl text-[#323232]'>Sorry, no results matched your request</h1>
+        <Image src='/BBCoolLogo.png' alt='b2b-logo' width={300} height={400} className='absolute w-[30%] h-fit'/>
+      </div>
       :
       <div className='w-full md:w-2/3  flex flex-wrap justify-center mt-[100%] md:mt-[5%] min-w-[55%] mr-[5%] mb-[10%]'> 
         {gameList}

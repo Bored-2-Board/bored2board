@@ -50,7 +50,6 @@ export default function Login() {
       
       // send backend the user and password
       // check if its valid
-      console.log(username, password)
       const settings = {
         method: "POST",
         headers: {
@@ -82,7 +81,8 @@ export default function Login() {
       }
     } catch (e) {
       console.log('hit catch block')
-
+      console.log(e)
+      console.log(e.message);
       setError(true);
       setUsername("");
       setPassword("");

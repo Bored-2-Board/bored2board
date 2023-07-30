@@ -13,6 +13,9 @@ import {
 } from "./store/PopularGames/popularGamesSlice";
 import { addNewResults, startLoadingNew } from "./store/NewGames/newGameSlice";
 
+import { updateData } from "./store/UserData/userDataSlice";
+import { addLoginStatus } from "./store/LoggedIn/loginSlice";
+
 import {
   addAllWishlistGames,
   startLoadingWish,
@@ -49,7 +52,7 @@ export default function Home() {
       try {
         dispatch(startLoading());
         dispatch(startLoadingNew());
-
+        dispatch(startLoadingWish());
         const popularResponse = await fetch("/api/popular");
         const newResponse = await fetch("/api/new");
         const popularGameList = await popularResponse.json();
@@ -59,7 +62,6 @@ export default function Home() {
         dispatch(addNewResults(newGameList.data.games));
 
         if (isLoggedIn) {
-          console.log("HITTING");
           const newGameList = await fetch(`/api/wishlist/get?userID=${userDataID}`);
           const newWishlist = await newGameList.json()
 
@@ -79,7 +81,7 @@ export default function Home() {
     }
     getCards();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
 
 
   // logic for popular and game list renders
@@ -91,7 +93,6 @@ export default function Home() {
   //popularGameList
   //newGameList
 
-  // console.log(popularGameList[0].name)
   const popularList = [];
 
   if (popularGameList.length !== 0) {
@@ -134,11 +135,9 @@ export default function Home() {
   // this is iterating over the wishlist list and rendering game cards
   // we add some extra logic here to make sure that games are present before we do this
 
-  console.log('RIGHT BEFORE ADDED', wishlistGameList)
   if (wishlistGameList) {
     if (wishlistGameList.length !== 0) {
       for (let i = 0; i < wishlistGameList.length; i++) {
-        console.log(wishlistGameList[i].name)
         wishListGames.push(
           <GameCard
             key={i}
@@ -198,7 +197,7 @@ export default function Home() {
         <div className="flex flex-wrap justify-center items-center mt-[2%]">
           {spookySkeletons}
         </div>
-      ) : isLoggedIn && wishListGames.length === 0 ? (
+      ) : isLoggedIn && !wishLoading && wishListGames.length === 0 ? (
         <div className="flex flex-col justify-center items-center mt-[4%]">
         <h1 className="font-black text-4xl text-slate-600">
           Wishlist Empty!
@@ -211,7 +210,7 @@ export default function Home() {
           className=" w-[200px] h-full transform scale-[200%] mt-10 mb-2"
         />
       </div>
-      ) :  isLoggedIn && wishLoading === false ? (
+      ) :  isLoggedIn && !wishLoading && wishListGames.length > 0 ? (
         <div className="flex justify-center flex-wrap items-center mt-[2%]">
         {wishListGames}
       </div>
