@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 export default function Footer() {
+
+  // this is making use of the DaisyUI footer component
   return (
     <footer data-theme="light" className="footer p-10 bg-base-300 text-base-content">
     <div>

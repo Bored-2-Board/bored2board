@@ -23,7 +23,7 @@ import {
 export default function Home() {
   const dispatch = useDispatch();
 
-  //List of games held in the redux store for trending, and for new games
+  //List of games held in the redux store for trending, new, and wishlist games
   const popularGameList = useSelector((state) => state.popularResult.gameList);
   const newGameList = useSelector((state) => state.newResult.gameList);
   const wishlistGameList = useSelector(
@@ -34,14 +34,16 @@ export default function Home() {
   const newLoading = useSelector((state) => state.newResult.loading);
   const wishLoading = useSelector((state) => state.wishlistResult.loading);
 
-  const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
+  // checking logged in status
 
+  const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
+// grabbing the current userID
   const userDataID = useSelector(state => state.userResult.id)
 
-  console.log(wishlistGameList);
 
   // This happens once on load, this is a fetch request to the backend to get all the trending/new games so we can update the
   // redux store and then render them to the page as cards
+
   useEffect(() => {
     async function getCards() {
       try {
@@ -79,8 +81,11 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   // logic for popular and game list renders
+
   // this iterates over the current store data and turns that data into a game card
+
   // it is then added to an array which we will render in the return statement
 
   //popularGameList
@@ -105,6 +110,7 @@ export default function Home() {
     }
   }
 
+  // this is iterating over the new games list and rendering game cards
   const newList = [];
 
   if (newGameList.length !== 0) {
@@ -125,7 +131,9 @@ export default function Home() {
 
   const wishListGames = [];
   
-  // console.log('current store', wishlistGameList[0].name)
+  // this is iterating over the wishlist list and rendering game cards
+  // we add some extra logic here to make sure that games are present before we do this
+
   console.log('RIGHT BEFORE ADDED', wishlistGameList)
   if (wishlistGameList) {
     if (wishlistGameList.length !== 0) {
@@ -147,6 +155,7 @@ export default function Home() {
     }
   }
 
+  // this is an array of loaders we will render if something is loading
   const spookySkeletons = [
     <SkeletonLoader key={1} />,
     <SkeletonLoader key={2} />,
@@ -155,6 +164,7 @@ export default function Home() {
     <SkeletonLoader key={5} />,
   ];
 
+  // a bunch of conditional renders here
   return (
     <div>
       <div className="flex justify-center items-center mt-[3%]">

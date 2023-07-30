@@ -10,18 +10,26 @@ import { useRouter } from 'next/navigation';
 
 export default function Navigation() {
   const dispatch = useDispatch();
+
+  // this router method - when invoked - forces the client to the endpoint of your choice
   const router = useRouter();
+  // current user's name -- based on what is held in the redux store
   const userName = useSelector((state) => state.userResult.name);
+  // login state held in the redux store
   const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
 
+  // this state is so that we can open and close the profile picture dropdown onclick 
   const [isOpen, setIsOpen] = useState(false);
 
+  // This updates the search page to its default state whenever you leave to a different page -- setTimeout is so it doesn't change instantly and look ugly
   const homeOnClick = () => {
     setTimeout(() => {
       dispatch(restartLoading());
     }, 1000);
-  };
+  }; // need to UPDATE this function so it does this whenever the page is left -- not just when going home
 
+  // whenever sign-out is clicked on the nav this will run
+  // this updates the redux store to "Signed Out Status" so all the conditionally rendered stuff does what its supposed to
   const signOut = () => {
     dispatch(addLoginStatus(false));
     router.push('/');

@@ -11,14 +11,22 @@ import { useRouter } from 'next/navigation'
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  // this is the state to know wether or not the style should be active or disabled
   const [disabledButton, setDisabled] = useState(true);
+
+  // this is state that will be set to true if there is a error returned from the server during an attempted sign-in
   const [error, setError] = useState(false);
 
   const router = useRouter();
 
   const dispatch = useDispatch();
+
+  // idk
   const isLoggedIn = useSelector((state) => state.loginResult.isLoggedIn);
 
+
+  // this will update the style of the sign in button if both username and pass are over 5 characters 
   useEffect(() => {
     if (username.length >= 5 && password.length >= 5) {
       setDisabled(false);
@@ -27,6 +35,8 @@ export default function Login() {
     }
   }, [username, password]);
 
+
+  // Basic onChange functions that update state depending on the appropriate fields 
   const updateUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -56,24 +66,21 @@ export default function Login() {
       const data = await fetch("/api/auth/signin", settings);
       const response = await data.json();
 
-        console.log('response is', response);
+        // if the sign in is a sucess we will make sure the error state is false, update the redux store with all the user info and set the signed in status to true
+        // we will also force the client to the home page
       if (response.message === 'Success!') {
         setError(false);
         dispatch(addLoginStatus(true));
         dispatch(updateData({name: response.name, email: response.email, id: response.userID, username: username})); // or grab it from state ^
         router.push("/");
       } else {
+        // if sign in failed we will reset the fields and set our error state to true so that they get some feedback
         console.log('hit else block')
         setError(true);
         setUsername("");
         setPassword("");
       }
-
-      // if it is
-      // update the redux store to yes is logged in, and update it with their information
-      // redirect them to home
     } catch (e) {
-      // if its not, give them some kind of alert that it failed
       console.log('hit catch block')
 
       setError(true);
@@ -82,12 +89,10 @@ export default function Login() {
     }
   };
 
+  // this is a button style
   const disabled = "btn btn-disabled";
 
-  // <div>
-  //             <Image src='/BBCoolLogo.png' width={100} height={50} alt="logo" className='h-full max-w-none'/>
-  //         </div>
-
+  // return statement 
   return (
     <div className="flex items-center justify-center mt-[2%] pt-10 pb-10">
       <div
@@ -108,12 +113,12 @@ export default function Login() {
           <div className="form-control mt-2 w-full max-w-xs mx-auto">
             <form
               onSubmit={(event) => {
+                // this prevents reload on submit 
                 event.preventDefault();
               }}
             >
               <label className="label">
                 <span className="label-text">Username</span>
-                {/* <span className="label-text-alt">Top Right label</span> */}
               </label>
               <input
                 type="text"
@@ -123,13 +128,8 @@ export default function Login() {
                 onChange={updateUsername}
                 autoComplete="username"
               />
-              {/* <label className="label">
-                    <span className="label-text-alt">Bottom Left label</span>
-                    <span className="label-text-alt">Bottom Right label</span>
-                    </label> */}
               <label className="label pt-5">
                 <span className="label-text">Password</span>
-                {/* <span className="label-text-alt">Top Right label</span> */}
               </label>
               <input
                 type="password"
@@ -139,14 +139,7 @@ export default function Login() {
                 onChange={updatePassword}
                 autoComplete="current-password"
               />
-              {/* <label className="label">
-                    <span className="label-text-alt">Bottom Left label</span>
-                    <span className="label-text-alt">Bottom Right label</span>
-                    </label> */}
               <div className="card-actions justify-center pt-[40px]">
-                {/* <Link href='/register'>
-                        <button className="btn btn-primary" disabled={disabledButton} onClick={registerUser}>Register</button>
-                        </Link> */}
                 <div
                   className={`${
                     !error ? "hidden" : "flex justify-center text-red-600 "

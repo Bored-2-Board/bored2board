@@ -3,6 +3,8 @@ import React from 'react';
 import { Skeleton } from '@mui/material';
 
 export default function SkeletonLoader() {
+// this is a super basic skeleton loader that makes use of MUI
+// the aim is to give it the same dimensions as the game cards
   return (
     <div className='mt-[2.2%] overflow-hidden flex align-center justify-center relative m-3'>
       <Skeleton animation='wave' variant="rounded" width={300} height={425} sx={{borderRadius: '10px'}} />

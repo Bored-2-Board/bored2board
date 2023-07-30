@@ -17,8 +17,11 @@ export default function SearchCard() {
 
   const dispatch = useDispatch();
 
+  // this is the default styling for the "Get Games Button at the bottom of the card"
   let getGamesStyle = "btn btn-disabled w-full";
 
+  // This is some logic that updates the style of that button if all the required data is filled out
+  // need to UPDATE this to respond to state instead -- It does work though
   if (
     selectedGenre !== "Genre" &&
     players !== null &&
@@ -27,10 +30,12 @@ export default function SearchCard() {
     getGamesStyle = "btn hover:btn-primary w-full";
   }
 
+  // this is more logic that checks to see if you clicked the "Anything button" -- this will also change the "Get Games button style"
   if (anything === true && players !== null && selectedButton !== null) {
     getGamesStyle = "btn hover:btn-primary w-full";
   }
 
+  // These are all OnClick events that let us know which of the three price buttons is currently pressed
   const changeFree = () => {
     setSelectedButton("free");
 
@@ -54,30 +59,38 @@ export default function SearchCard() {
       setSelectedButton(null);
     }
   };
+  // see comment above ^^
+  
 
+  // This is a OnClick that will let us know if the Anything button was clicked -- This will also close the dropdown if it is still open when clicked
   const changeAnything = () => {
     setAnything(!anything);
     !anything ? setDisabled(true) : setDisabled(false);
     setDropdown(false);
   };
 
+    // This is a function to change the status of the dropdown on click -- EX: 'Click' Open -> Close
+    // We prevent default here so we can manage the open/close attribute with state. It tries to do this on its own and we need to stop that
   const changeGenre = (e) => {
     e.preventDefault();
     setDropdown(!dropdownOpen);
   };
 
+  // This is a simple onChange function that will update state depending on what number the slider is over
   const changePlayers = (e) => {
     setPlayers(e.target.value);
   };
 
+  // Whenever a item from the dropdown is selected, this will close the dropdown, and Update its text to match the selected option -- This will also update the
+  // genre state which then updates the styling of the button
   const selectGenre = (e) => {
     setSelectedGenre(e.target.text);
     setGenre(true);
     setDropdown(false);
   };
-  // selectedGenre = Genre we are sending -- if anything is true, send something else
-  // players = players we are sending
-  // price
+
+  // these are just different styles that we dynamically render -- if you look at the return statement
+  // you'll see the styles are different depending on state
 
   const selectedYes = "btn btn-primary min-w-[30%] mx-2";
   const selectedNo = "btn min-w-[30%] mx-2";
@@ -89,11 +102,16 @@ export default function SearchCard() {
   const dropdownInactive = "m-1 btn btn-primary w-full";
   const disabled = "btn btn-disabled";
 
+
+  // This is the bigClick even that happens whenever the client hits "Get Games".
+  // This is going to look at all of the state variables and then send a fetch request to the backend to get the results that we want
+
   const theBigClick = async () => {
     try {
+      // this updates the redux store and tells it that results are currently loading
   dispatch(startLoading());
       let category;
-
+// We need to send the corresponding category ID to the backend so that the API calls are accurate 
         if (selectedGenre === 'Adventure') {
           category = 'KUBCKBkGxV';
         } else if (selectedGenre === 'Card Game') {
@@ -122,8 +140,7 @@ export default function SearchCard() {
           category = ''
         };
 
- // category // playerCount // price
-      // dispatch(startLoading());
+
       let playerCount = players;
       let price = selectedButton;
 
@@ -135,20 +152,19 @@ export default function SearchCard() {
         },
       };
 
-
-
+      // We are sending our fetch request using query url parameters 
       const response = await fetch(`/api/search?categoryID=${category}&numPlayers=${playerCount}&price=${price}`, settings);
       const gameList = await response.json();
-      console.log(gameList.data.games)
+      
+      // we are then updating the redux store and adding all the fetches games and the info
       dispatch(addSearchResults(gameList.data.games));
-
-
 
     } catch (e) {
       console.log(e);
     }
   };
 
+    // return statement
   return (
     <div
       data-theme="light"

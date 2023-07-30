@@ -14,14 +14,21 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // ^^^^ these are all states we want up to date when there is a change
+
+  // This is the second password state that we need to check if the passwords match
   const [passwordCheck, setPasswordCheck] = useState("");
+  // State to check if the button should have a disabled style
   const [disabledButton, setDisabled] = useState(true);
+  // We will update this depending on wether or not the two passwords match
   const [passwordMatch, setPasswordMatch] = useState(false);
+  // This is an error state that will let users know there is an issue with their register info
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
+  // this is making sure that all the inputs meet our requirements and will update the style of the button if so
   useEffect(() => {
     if (
       username.length >= 5 &&
@@ -36,6 +43,7 @@ export default function Login() {
     }
   }, [username, password, name, email, passwordCheck]);
 
+  // this is checking if the passwords match
   useEffect(() => {
     if (
       passwordCheck === password &&
@@ -48,6 +56,8 @@ export default function Login() {
     }
   }, [password, passwordCheck]);
 
+
+  // these are all onChange values to keep our state up to date on each input type
   const updateUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -67,7 +77,11 @@ export default function Login() {
   const updatePasswordCheck = (e) => {
     setPasswordCheck(e.target.value);
   };
+//// see comment above ^
 
+
+// this is one of the functions that get run whenever there is an attempt to register
+// their data will be sent to the server to see if everything is ok
   const registerUser = async () => {
     try {
       // send backend the user and password
@@ -90,6 +104,7 @@ export default function Login() {
       const response = await data.json();
       console.log('entire response', response)
       console.log('response status', response.status)
+      // if all of the info checks out, were going to update the redux store with their info, set signed in status to true, and send them to the home page
       if (response.message === 'Success!') {
         setError(false);
         dispatch(addLoginStatus(true));
@@ -97,7 +112,7 @@ export default function Login() {
         router.push("/");
       }
 
-
+// if the server responds with an error, we will reset the input fields and set our error state to true so they get some feedback that something went wrong
     } catch (e) {
       setError(true);
       setUsername("");
@@ -107,8 +122,12 @@ export default function Login() {
     }
   };
 
+  // disabled button style
   const disabled = "btn btn-disabled";
 
+  // return statement
+  // There is a lot of onClick/onChange events that basically just tell us what styles to render
+  // lmk if you have more questions
   return (
     <div className="flex items-center justify-center pt-10 pb-10">
       <div
