@@ -30,7 +30,7 @@ export default function Navigation() {
   return (
     <div className="z-20 sticky top-0 flex w-full items-center mt-2 px-2">
       <div className="navbar flex flex-row justify-between bg-base-150 rounded-2xl bg-slate-100 border border-slate-200 ">
-        <Link href="/">
+        <Link href="/" className='z-50'>
           <Image
             src="/BBCoolLogo.png"
             alt="BB-Logo"
